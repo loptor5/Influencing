@@ -1,0 +1,143 @@
+<div class="w3-container">
+
+    <!-- Influencer -->
+    <table th:if="${modo} eq 'INFLUENCER'" class="w3-table-all w3-card-4 w3-margin-bottom w3-centered" id="tabla">
+
+        <!--
+            Lista influencers
+
+        -->
+		<h2 class="w3-center">Lista de influencers</h2>
+        <!-- Campos -->
+        <tr class="w3-cyan">
+            <th>Nombre cuenta</th>
+            <th>Nombre y apellidos</th>
+            <th>Número de contrataciones</th>
+            <th>Fecha de registro</th>
+            <th>Verificación</th>
+            <th>Ver</th>
+            <th>Eliminar/Reactivar</th>
+        </tr>
+        
+        <!-- Datos -->
+        <tr th:each="influencer : ${resultado}" th:class="${influencer.activo}? activo : inactivo">
+            <td th:text="${influencer.nombreCuenta}"></td>
+            <td th:text="${influencer.nombre +' '+ influencer.apellidos}"></td>
+            <td th:text="${influencer.numContrataciones}"></td>
+            <td th:text="${#temporals.format(influencer.fechaRegistro, 'dd/MM/yyyy')}"></td>
+            <td>
+				<i th:if="${influencer.verificado}" class="far fa-check-square"></i>
+				<button th:attr="data-id=${influencer.id}" th:unless="${influencer.verificado}" class="verificarInfluencer">Verificar</button>
+			</td>
+            <td><i th:attr="data-id=${influencer.id}" class="far fa-eye verInfluencer"></i></i></td>
+            <td><i th:attr="data-id=${influencer.id}" th:class="${influencer.activo}? 'fa fa-trash eliminarInfluencer' : 'fa fa-history reactivarInfluencer'"></i></td>
+        </tr>
+    </table>
+
+    <!-- Empresa -->
+    <table th:if="${modo} eq 'EMPRESA'"class="w3-table-all w3-card-4 w3-margin-bottom w3-centered" id="tabla">
+
+        <!--
+            Lista empresas
+            
+        -->
+		<h2 class="w3-center">Lista de empresas</h2>
+
+        <!-- Campos -->
+        <tr class="w3-cyan">
+            <th>Nombre cuenta</th>
+            <th>Nombre</th>
+            <th>Fecha de registro</th>
+            <th>Verificación</th>
+            <th>Ver</th>
+            <th>Eliminar</th>
+        </tr>
+        
+        <!-- Datos -->
+        <tr th:each="empresa : ${resultado}" th:class="${influencer.activo}? activo : inactivo">
+            <td th:text="${empresa.nombreCuenta}"></td>
+            <td th:text="${empresa.nombre}"></td>
+            <td th:text="${#temporals.format(empresa.fechaRegistro, 'dd/MM/yyyy')}"></td>
+            <td>
+				<i th:if="${empresa.verificado}" class="far fa-check-square"></i>
+				<button th:unless="${empresa.verificado}" th:attr="data-id=${empresa.id}" class="verificarEmpresa">Verificar</button>
+			</td>
+            <td><i th:attr="data-id=${empresa.id}" class="fa fa-eye verEmpresa"></i></td>
+            <td><i th:attr="data-id=${empresa.id}" th:class="${empresa.activo}? 'fa fa-trash eliminarEmpresa' : 'fa fa-history reactivarEmpresa'"></i></td>
+        </tr>
+    </table>
+
+    <!-- Propuesta-->
+    <table th:if="${modo} eq 'PROPUESTA'"class="w3-table-all w3-card-4 w3-margin-bottom w3-centered" id="tabla">
+
+        <!--
+            Lista propuestas
+
+        -->
+		<h2 class="w3-center">Lista de propuestas</h2>
+
+        <!-- Campos -->
+        <tr class="w3-cyan">
+            <th>Nombre</th>
+            <th>Empresa creadora</th>
+            <th>Fecha publicación</th>
+            <th>Periodo</th>
+            <th>Verificar</th>
+            <th>Ver</th>
+            <th>Eliminar</th>
+        </tr>
+        
+        <!-- Datos -->
+        <tr th:each="propuesta : ${resultado}">
+            <td th:text="${propuesta.nombre}"></td>
+            <td th:text="${propuesta.empresa.nombre}"></td>
+            <td th:text="${#temporals.format(propuesta.fechaSubida, 'dd/MM/yyyy')}"></td>
+            <td th:text="${#temporals.format(propuesta.fechaInicio,
+            'dd/MM/yyyy') + ' - ' + #temporals.format(propuesta.fechaFin,'dd/MM/yyyy')}"></td>
+            <td>
+
+                <i th:if="${propuesta.verificado}" class="far fa-check-square"></i>
+				<button th:unless="${propuesta.verificado}" th:attr="data-id=${propuesta.id}" class="verificarPropuesta">Verificar</button>
+            </td>
+                
+            <td><i th:attr="data-id=${propuesta.id}" class="fa fa-eye verPropuesta"></i></td>
+            <td><i th:attr="data-id=${propuesta.id}" class="fa fa-trash eliminarPropuesta"></i></td>
+        </tr>
+    </table>
+
+    <!-- Denuncia -->
+    <table th:if="${modo} eq 'DENUNCIA'"class="w3-table-all w3-card-4 w3-margin-bottom w3-centered" id="tabla">
+
+        <!--
+            Lista denuncias
+
+        -->
+		<h2 class="w3-center">Lista de denuncias</h2>
+
+        <!-- Campos -->
+        <tr class="w3-cyan">
+            <th>Denunciante</th>
+            <th>Título</th>
+            <th>Denunciado</th>
+            <th>Fecha denuncia</th>
+            <th>Tramitada</th>
+            <th>Ver</th>
+
+        </tr>
+        
+        <!-- Datos -->
+        <tr th:each="denuncia : ${resultado}">
+            <td th:text="${denuncia.denunciante.nombre}"></td>
+            <td th:text="${denuncia.titulo}"></td>
+            <td th:text="${denuncia.denunciado.nombre}"></td>
+            <td th:text="${#temporals.format(denuncia.fecha, 'dd/MM/yyyy')}"></td>
+            <td>
+                <i th:if="${denuncia.tramitada}" class="far fa-check-square"></i>
+				<button th:unless="${denuncia.tramitada}" th:attr="data-id=${denuncia.id}" class="tramitarDenuncia">Tramitar</button>
+            </td>
+            <td><i th:attr="data-id=${denuncia.id}" class="fa fa-eye verDenuncia"></i></td>
+        </tr>
+
+    </table>
+
+</div>

@@ -1,0 +1,125 @@
+<head>
+    <th:block th:replace="fragments/head.html :: header" />
+    <link rel="stylesheet" href="css/valoracion.css">
+</head>
+
+
+<header>
+    <div th:replace="fragments/navigation.html :: modalBar(nombrePagina='DENUNCIA')"></div>
+</header>
+
+<body>
+    <form th:action="${modo=='CREACION'}?@{/denuncia/registrar}:@{/denuncia/tramitar}" method="POST">
+
+        <!-- Denunciante -->
+        <div class="w3-container w3-margin-bottom boxDenuncia divFlexSpaceEvenly divCentrado">
+            <div class="divPerfilUsuario">
+
+                <h2>Nombre del denunciante</h2>
+                <p th:text="${denunciante.nombre}"></p>
+
+                <h2>Rol del denunciante</h2>
+                <p th:text="${denunciante.hasRole('EMPRESA')?'Empresa':'Influencer'}"></p>
+
+                <h2>Valoración del denunciante</h2>
+                <div class="score" th:if="${denunciante.score!=null}">
+                    <th:block th:each="i: ${#numbers.sequence(1, denunciante.score)}">					
+                        <i class="fa fa-star w3-margin estrella"></i>
+                    </th:block>
+                    <i th:if="${#strings.substring(denunciante.score,2) >= '5'}" class="fa fa-star-half-alt w3-margin estrella"></i>
+                </div>
+                <div class="score" th:if="${denunciante.score == null}">
+                    <p>No tiene valoraciones aun</p>
+                </div>
+            </div> 
+            <div >
+                <img class="imgValoracion" th:src="@{/perfil/{id}/photo(id=${denunciante.id})}"/>
+            </div>
+        </div>
+
+			
+
+        <!-- Denunciado -->
+        <div class="w3-container w3-margin-bottom boxDenuncia divFlexSpaceEvenly divCentrado">
+            <div class="divPerfilUsuario">
+                
+                <h2>Nombre del denunciado</h2>
+                <p th:text="${denunciado.nombre}"></p>
+
+                <h2>Rol del denunciado</h2>
+                <p th:text="${denunciado.hasRole('EMPRESA')?'Empresa':'Influencer'}"></p>
+
+                <h2>Valoración del denunciado</h2>
+                <div class="score" th:if="${denunciado.score!=null}">
+                    <th:block th:each="i: ${#numbers.sequence(1, denunciado.score)}">					
+                        <i class="fa fa-star w3-margin estrella"></i>
+                    </th:block>
+                    <i th:if="${#strings.substring(denunciado.score,2) >= '5'}" class="fa fa-star-half-alt w3-margin estrella"></i>
+                </div>
+                <div class="score" th:if="${denunciado.score == null}">
+                    <p>No tiene valoraciones aun</p>
+                </div>
+
+
+            </div>
+			<div >
+	            <img class="imgValoracion" th:src="@{/perfil/{id}/photo(id=${denunciado.id})}"/>
+			</div>
+        </div>
+
+
+        <!-- Denuncia -->
+        <div class="w3-container w3-margin-bottom boxDenuncia divFlexSpaceEvenly divCentrado">
+            <div id="cabecera">
+                
+                <div th:if="${modo} eq 'CREACION'">
+
+                    <!-- Valor id denunciado oculto-->
+                    <input type="hidden" name="idDenunciado" th:value="${denunciado.id}">
+
+                    <!-- Titulo -->
+                    <h1>Título</h1>
+                    <input type="text" name="titulo" maxlength="100" placeholder="Introduzca el título de la denuncia" size="50" class="w3-center" required>
+
+                    <!-- Descripcion -->
+                    <h1>Descripción</h1>
+                    <textarea name="descripcion" rows = "8" cols = "70" maxlength="500" placeholder="Introduzca la descripción de la denuncia" required></textarea>
+
+                </div>
+
+                <div th:unless="${modo} eq 'CREACION'">
+
+                    <!-- Valor id denuncia oculto-->
+                    <input type="hidden" name="idDenuncia" th:value="${denuncia.id}">
+
+                    <!-- Titulo -->
+                    <h1>Título</h1>
+                    <p th:text="${denuncia.titulo}"></p>
+
+                    <!-- Descripcion -->
+                    <h1>Descripción</h1>
+                    <p th:text="${denuncia.descripcion}"></p>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Valor ruta oculto -->
+        <input type="hidden" name="ruta" th:value="${ruta}">
+
+        <!-- Botones interactivos -->
+        <div class="divCentrado">
+            <button th:if="${modo} eq 'CREACION'" id="dasda" class="w3-btn btnColor w3-margin" type="submit">Enviar denuncia</button>
+			<button th:if="${modo} eq 'TRAMITACION'" class="w3-btn btnColor w3-margin" id="eliminarDenunciado"
+			 type="submit" name="borra" value="true">Eliminar al denunciado</button>
+            <button th:if="${modo} eq 'TRAMITACION'" class="w3-btn btnColor w3-margin" type="submit" name="borra" value="true">Ignorar y marcar como tramitada</button>
+        </div>
+
+    </form>
+    
+    <!-- Boton de cerrar -->
+	<div class="divCentrado">
+	    <button th:if="${modo} eq 'VISTA'" class="w3-btn btnColor w3-margin" onclick="document.getElementById('modal').style.display='none'">Cerrar denuncia</button>
+	</div>
+
+</body>

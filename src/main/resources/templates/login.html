@@ -1,0 +1,38 @@
+<html lang="en">
+
+<head>
+  <th:block th:replace="fragments/head.html :: header" />
+  <script src="js/login.js" type="text/javascript"></script>
+  <title>Login</title>
+</head>
+
+<body id="bodyLogin">
+  <div class="container">
+    <p class="logo w3-display-center">INFLUENCING</p>
+    <form class="formLogin w3-round w3-white" method="post" th:action="@{/login}">
+      <h3>Introduce nombre de usuario y contraseña</h3>
+      <p>
+        <!-- Usuario-->
+        <input type="text" id="username" name="username" class="w3-input w3-animate-input" placeholder="Usuario" required=""autofocus="">
+      </p>
+      <p>
+        <!-- Contraseña -->
+        <input type="password" id="password" name="password" class="w3-input w3-animate-input" placeholder="Contraseña" required="">
+      </p>
+      <button class="w3-btn btnColor w3-margin" type="submit">Entrar</button>
+    </form>
+
+    <!-- Boton de registro-->
+    <a id="registroLogin"><u>Registro</u></a>
+
+  </div>
+
+  <!-- Mensaje de informacion -->
+  <p th:text="${mensaje}" id="mensajeInfo" hidden></p>
+
+  <!-- Modal de Registro-->
+  <div th:replace="fragments/modal.html"></div>
+
+</body>
+
+</html>

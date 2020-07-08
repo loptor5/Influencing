@@ -1,0 +1,82 @@
+.tags {
+    border: 1px solid deepskyblue;
+    padding: 4px;
+    margin: 2px;
+	width: fit-content;
+    min-width: 50px;
+}
+
+.score {
+	margin: 3px;
+}
+
+.box {
+	width: 90%;
+	box-shadow: 0 1px 3px -2px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    border-radius: 20px;
+    margin: 2%;
+    padding: 1% !important;
+    background-color: #f9f9f9c4;
+    border: solid 1pt lightgrey;
+	min-height: fit-content;
+	display: flex;
+}
+
+.fecha{
+	width: fit-content;
+	box-shadow: 0 1px 3px -2px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    border-radius: 20px;  
+    background-color: #f9f9f9c4;
+    border: solid 1pt lightgrey;
+	margin-bottom: 6%;
+	min-width: max-content;
+}
+
+w3-padding-32 {
+    width: 100%;
+    display: flex;
+    padding-bottom: 32px!important;
+    padding-top: 32px!important;
+}
+
+.firstCol{
+  width: 25%;
+  max-width: 25%;
+}
+
+.info{ 
+  padding: 2%;
+  width: 30%;
+  max-width: 30%;
+  text-align: center;
+  height: fit-content;
+  margin-bottom: auto;
+  margin-top: auto;
+  min-width: fit-content;
+}
+
+.thirdCol{
+    padding: 2%;
+    width: 45%;
+}
+
+.description{
+  margin: 2%;
+  min-height: 65%;
+}
+
+.descripText{
+  line-height:25px;
+  text-align: justify;
+}
+
+
+.subtitle{
+    font-family: 'ABeeZee';
+    margin: 2%;
+}
+
+.imagen {
+	width: 100%;
+	margin-bottom:1%
+}

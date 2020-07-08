@@ -1,0 +1,107 @@
+
+<html lang="en">
+
+<head>
+    <th:block th:replace="fragments/head.html :: header"/>
+    <link rel="stylesheet" href="css/inicio.css">
+
+</head>
+
+<!-- Header -->
+<header>
+    <div th:replace="fragments/navigation.html :: navBar(nombrePagina='INICIO')"></div>
+</header>
+
+<body class="general">
+    <!--  -------------------------Cuerpo de la web----------------------------->
+	<div id="page_block" class="w3-row-padding global_div">
+		<div id= "left_panel" class="left_panel column w3-third w3-container">
+			<div id="control_panel" class="control_panel">
+				<div id="content" class="content">
+				<h2>Panel de control</h2>
+				<h3>Buscar usuario</h3>
+				<input type="text" style="border-radius: 10px;" size="40">
+				<input type="submit" style="border-radius: 10px;" value="Buscar">
+				</br>
+				<h3>Buscar propuesta</h3>
+				<input type="text" style="border-radius: 10px;" size="40">
+				<input type="submit" class="button" value="Buscar">
+				</div>
+			</div>
+		</div>
+		
+		<div id="messages" class="messages_panel column w3-third w3-container">
+				<div class="content">
+					<h2> Mensajes recientes</h2>
+					<button class="button">Ver todos los mensajes</button>
+					<div th:each="mensaje : ${mensajes}" id="message1" class="dark_block">
+						<div class="content">	
+							<p th:text="${mensaje.getSender().getNombre() +': '+ mensaje.getText()}" style="font-weight: bold;">Emisor <a th:text="${mensaje.getText()}" style="font-weight: 100;">Mensaje</a></p>
+							</br>
+							</br>
+							<div class="button_row">
+								<button class="button">Marcar como leído</button>
+                    			<button style="margin-left: 20px; margin-right: 20px;" class="button">Eliminar mensaje</button>
+                    			<button class="button">Ir a la conversación</button>
+							</div>
+						</div>	
+					</div>
+				</div>
+			</div>
+		
+		<div id="proposal" class="column w3-third w3-container">
+			<div id="proposal_block" class="proposal_block">
+				<div class="content">
+					<h1>Propuestas recientes</h1>
+					<button class="button">Ver todas las propuestas</button>
+						<div id="proposal1" class="dark_block">
+						<div class="content">
+							<p style="font-weight: bold;">Marca1: <a style="font-weight: 100;">Campaña en la que aquellos que
+                        	participéis debéis beber una Coca-Cola en alguno de
+                        	vuestros vídeos y hablar sobre el nuevo sabor que hemos lanzado</a></p>
+                			<div id="button_row_message" class="button_row_message">
+                    			<button class="button">Ir a la propuesta</button>
+                    			<button style="margin-left: 20px; margin-right: 20px;" class="button">Abandonar propuesta</button>
+                    			<button class="button">Contactar</button>
+                			</div>
+						</div>	
+					</div>
+					<div id="proposal2" class="dark_block">
+						<div class="content">
+							<p style="font-weight: bold;">Marca2: <a style="font-weight: 100;">Lorem ipsum dolor sit amet,
+                        	consectetur adipiscing elit,
+                        	sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                        	nostrud </a></p>
+                			<div id="button_row_message" class="button_row_message">
+                    			<button class="button">Ir a la propuesta</button>
+                    			<button class="button" style="margin-left: 20px; margin-right: 20px;">Abandonar propuesta</button>
+                    			<button class="button">Contactar</button>
+                			</div>
+						</div>	
+					</div>
+					<div id="proposal3" class="dark_block">
+						<div class="content">
+							<p style="font-weight: bold;">Marca3: <a style="font-weight: 100;">Lorem ipsum dolor sit amet,
+                        	consectetur adipiscing elit,
+                        	sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                        	nostrud</a></p>
+                			<div id="button_row_message" class="button_row_message">
+                    			<button class="button">Ir a la propuesta</button>
+                    			<button class="button" style="margin-left: 20px; margin-right: 20px;">Abandonar propuesta</button>
+                    			<button class="button">Contactar</button>
+                			</div>
+						</div>	
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+ 
+    <!------------------------------Footer area--------------------------------->
+	<div>
+	<footer th:replace="fragments/navigation.html :: footer"></footer>
+	</div>
+
+</body>
+
+</html>

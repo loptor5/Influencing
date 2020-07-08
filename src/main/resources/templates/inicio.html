@@ -1,0 +1,100 @@
+<html lang="en">
+
+<head>
+	<th:block th:replace="fragments/head.html :: header" />
+	<script src="js/inicio.js" type="text/javascript"></script>
+		<link rel="stylesheet" type="text/css" href="css/contrataciones.css">
+
+	<title>Influencing: Inicio</title>
+</head>
+
+
+
+<body>
+
+	<!-- Header -->
+	<header>
+		<div th:replace="fragments/navigation.html :: navBar(nombrePagina='INICIO')"></div>
+	</header>
+	<!--   Cuerpo de la web  -->
+
+	<div class="w3-row divCentrado">
+
+		<!-- Panel de búsqueda -->
+		<div class="w3-col s3 w3-container w3-light-grey w3-round-large w3-margin">
+
+			<h1><b>Panel de búsqueda</b></h1>
+
+			<h3>Buscar usuario</h3>
+			<form class="w3-container w3-margin" method="POST" th:action="@{/busquedaPerfil}">
+				<input class="w3-input" name="nombrePerfilBusqueda" type="text" placeholder="Introduzca el nombre del usuario..." required></input>
+				<input class="w3-btn" type="submit" value="Buscar">
+			</form>
+
+			<h3>Buscar propuesta</h3>
+			<form class="w3-container w3-margin" method="POST" th:action="@{/busquedaPropuesta}">
+				<input class="w3-input" name = "nombrePropuestaBusqueda" type="text" placeholder="Introduzca el nombre de la propuesta..." required></input>
+				<input class="w3-btn" type="submit" value="Buscar">
+			</form>
+
+			<!-- Boton publicar propuesta [EMPRESA] -->
+			<div th:if="${session.u.hasRole('EMPRESA')}" class="divBotonPublicar">
+				<button class="w3-btn btnColor w3-margin" id="botonCrearPropuesta">Crear propuesta</button>
+			</div>
+		</div>
+
+		<!-- Panel de notificaciones recientes -->
+		<div class="w3-col s4 w3-container w3-light-grey w3-round-large w3-margin">
+
+			<h1><b>Notificaciones recientes</b></h1>
+
+			<button class="w3-btn btnColor w3-margin" id="botonNotificacionesIni">Ver todas las notificaciones</button>
+
+			<!-- Lista de mensajes -->
+			<div th:each="mensaje : ${mensajes}" id="message1" class="w3-container w3-blue-grey w3-round-large w3-margin">
+				<h3><b th:text="${mensaje.getEmisor().getNombre()}"></b></h3>
+				<p th:text="${#temporals.format(mensaje.getFechaEnviado(), 'dd/MM/yyyy')}"></p>
+				<div class="w3-container w3-pale-blue">
+					<p th:text="${mensaje.getDescripcion()}"></p>
+				</div>
+				<input th:if="${mensaje.tipo eq 'VALORACION'}" class="w3-btn w3-dark-grey w3-margin muestraValoracion" th:attr="data-id=${mensaje.valoracion.id}" type="submit" value="Ver valoración"></input>
+				<input class="w3-btn w3-dark-grey w3-margin eliminaNotificacionInicio" th:attr="data-id=${mensaje.id}" type="submit" value="Eliminar mensaje"></input>
+			</div>
+
+		</div>
+
+		<!-- Panel de propuestas recientes -->
+		<div class="w3-col s4 w3-container w3-light-grey w3-round-large w3-margin">
+
+			<h1><b>Negociaciones recientes</b></h1>
+
+
+			<button class="w3-btn btnColor w3-margin" id="verTodasPropuestas" th:href="@{/negociacion}">Ver todas las negociaciones</button>
+
+			<!-- Lista de propuestas -->
+			<div th:each="candidatura : ${candidaturas}" class="w3-container w3-blue-grey w3-round-large w3-margin">
+				<h3 th:if="${session.u.hasRole('INFLUENCER')}"><b th:text="${candidatura.getPropuesta().getEmpresa().getNombre()}"></b></h3>
+				<h3 th:if="${session.u.hasRole('EMPRESA')}"><b th:text="${candidatura.getCandidato().getNombre()}"></b></h3>
+				<p th:text="${#temporals.format(candidatura.getPropuesta().getFechaSubida(), 'dd/MM/yyyy')}"></p>
+				<div class="w3-container w3-pale-blue">
+					<p th:text="${candidatura.getPropuesta().getNombre() + ': ' + candidatura.getPropuesta().getDescripcion()}"></p>
+				</div>
+				<input class="w3-btn w3-dark-grey w3-margin btnVerPropuesta" type="submit" th:attr="data-id=${candidatura.propuesta.id}" value="Ver la propuesta"></input>
+			</div>
+
+		</div>
+
+	</div>
+
+	<!-- Mensaje de informacion -->
+	<p th:text="${mensaje}" id="mensajeInfo" hidden></p>
+
+	<!-- Footer -->
+	<footer th:replace="fragments/navigation.html :: footer"></footer>
+
+	<!-- Modal -->
+	<div th:replace="fragments/modal.html"></div>
+
+</body>
+
+</html>

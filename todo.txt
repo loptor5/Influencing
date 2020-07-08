@@ -1,0 +1,3 @@
+Carlos
+	Denunciar al buscar tu propio perfil que aparezca editar
+	Carpeta data

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<!--  SDF-->
+
+<head>
+    <th:block th:replace="fragments/head.html :: header" />
+    <link href="css/administracion.css" rel="stylesheet" />
+    <script src="js/administracion.js" type="text/javascript"></script>
+    <title>Influencing: Administración</title>
+</head>
+
+<body class="general">
+
+    <!-- Header -->
+    <header>
+        <div th:replace="fragments/navigation.html :: navBar(nombrePagina='ADMINISTRACIÓN')"></div>
+    </header>
+    <main>
+
+        <!-- Barra de Navegacion de Administracion -->
+        <div class="principal content">
+            <div class="subheader">
+                <div class="enlaces">
+                    <a id="influencerAdmin" class="category">Influencers</a>
+                    <a id="empresasAdmin" class="category">Empresas</a>
+                    <a id="propuestasAdmin" class="category">Propuestas</a>
+                    <a id="denunciasAdmin" class="category">Denuncias</a>
+                </div>
+                <div class="busqueda">
+                    <form id="adminForm">
+                        <input type="text" class="w3-input w3-center" placeholder="Inserte un nombre para filtrar..." 
+                        id="barraFiltro" onkeyup="filtraNombre()">
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    
+        <!-- Resultado tabla Admin -->
+        <div id="tablaAdministracion">
+            <div  th:replace="fragments/tablaAdmin.html"></div>
+        </div>
+
+    </main>
+
+    <!-- Mensaje -->
+    <p th:text="${mensaje}" id="mensajeInfo" hidden></p>
+
+    <!-- Footer -->
+    <footer th:replace="fragments/navigation.html :: footer"></footer>
+
+    <!-- Modal -->
+	<div th:replace="fragments/modal.html"></div>
+
+</body>
+
+</html>

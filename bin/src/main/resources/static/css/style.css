@@ -1,0 +1,48 @@
+.general{
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+.h1{
+    color: #000000;
+    font-weight: normal;
+    font-size: 40px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-transform: uppercase;
+}
+
+.h2{
+    color: #000000;
+    font-size: 35px;
+    font-weight: normal;
+    font-family: Arial, Helvetica, sans-serif;
+    text-transform: uppercase;
+}
+
+.h3{
+    color: #000000;
+    font-size: 30px;
+    font-weight: normal;
+    font-family: Arial, Helvetica, sans-serif;
+    text-transform: uppercase;
+}
+
+.header-config{
+    background-color: #6ed1dd;                             /*Color que está en los moqups*/
+}
+
+.footer-config{
+    background-color: #000000;
+    color: #FFFFFF; 
+}
+
+a:link, a:visited, a:active{
+    text-decoration:none;
+    /*color:white;*/
+}
+
+.horizontalBar {
+    margin: 0 auto;
+    width: max-content;
+}
+

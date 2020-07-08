@@ -1,0 +1,72 @@
+*{
+    margin:0px;
+}
+
+
+.valoracion{
+    width: 400px;
+    height: 200px;
+    text-align: center;
+}
+
+.main-content{
+    background-color: #E6E6E6;
+    height:500px;
+    width:80%;
+    -webkit-box-shadow: 13px 5px 17px 1px rgba(0,0,0,0.7);
+    -moz-box-shadow: 13px 5px 17px 1px rgba(0,0,0,0.7);
+    box-shadow: 13px 5px 17px 1px rgba(0,0,0,0.7);
+    top:50%;
+    left:50%;
+    margin-top:100px;
+    margin-left:150px;
+    text-align:center;
+}
+
+.info{
+    padding: 5em 0;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+title{
+    border-bottom: 1px solid black;
+}
+
+.accepted{
+    display:inline-block;
+}
+
+.accepted-1, .accepted-2{
+    margin-top:10px;
+    border:1px solid black;
+    border-radius:5px;
+    background-color:green;
+    padding:20px;
+}
+
+.accepted-1:hover,.accepted-2:hover{
+    background-color: darkgreen;
+}
+
+.ec-stars-wrapper {
+	font-size: 0;
+	display: inline-block;
+}
+.ec-stars-wrapper a {
+	text-decoration: none;
+	display: inline-block;
+	font-size: 32px;
+	font-size: 2rem;
+	
+	color: #888;
+}
+
+.ec-stars-wrapper:hover a {
+	color: rgb(39, 130, 228);
+}
+
+.ec-stars-wrapper > a:hover ~ a {
+	color: #888;
+}

@@ -1,0 +1,74 @@
+
+<div th:if="${#lists.isEmpty(resultadoBusqueda)}" class="divCentrado">
+	<h3>No hay resultados</h3>
+</div>
+<div th:unless="${#lists.isEmpty(resultadoBusqueda)}">
+
+	<div id="divContrataciones">
+
+		<h2 th:text="${modo}" class="w3-margin-left"></h2>
+		<div th:each="c : ${resultadoBusqueda}" class="w3-row-padding">
+			<div class="w3-third w3-container w3-margin-bottom box" style="width: 97%">
+
+				<div class="firstCol">
+					<div class="w3-third w3-container fecha divCentrado">
+
+						<!-- Fecha de la propuesta -->
+						<p th:text="${#temporals.format(c.propuesta.fechaInicio, 'dd/MM/yyyy') + ' - ' + #temporals.format(c.propuesta.fechaFin,'dd/MM/yyyy')}">
+						
+						<!-- Estado -->
+						<p class="negrita" th:text="${#strings.replace(c.estado,'_',' ')}"></p>
+					</div>
+					
+					<!-- Imagen -->
+					<img th:src="@{/propuesta/{id}/photo(id=${c.propuesta.id})}" style="width:100%">
+				</div>
+
+				<div class="info w3-container w3-light-grey w3-round-large w3-margin">
+
+					<!-- Nombre propuesta -->
+					<h2><b th:text="${c.propuesta.nombre}"></b></h2>
+
+					<!-- Nombre empresa -->
+					<p><b>Empresa: </b></p>
+					<a th:text="${c.propuesta.empresa.nombre}"></a>
+
+					<!-- Nombre influencer -->
+					<p><b>Influencer: </b></p>
+					<a th:text="${c.candidato.nombre + ' '+ c.candidato.apellidos}"></a>
+
+				</div>
+
+				<div class="thirdCol w3-container w3-light-grey w3-round-large w3-margin">
+					
+					<!-- Descripcion -->
+					<div class="description">
+						<h3><b>Descripción</b></h3>
+						<p style="line-height:25px;text-align: justify;" th:text="${c.propuesta.descripcion}"></p>
+					</div>
+
+					<!-- Botones -->
+					<div class="divFlexSpaceEvenly">
+						<button class="w3-btn btnColor w3-margin btnDetalles"
+							th:attr="data-id=${c.propuesta.id}">Detalles</button>
+							<button th:if="${c.estado} eq 'FINALIZADA'" class="w3-btn btnColor w3-margin btnMostrarValoracion"
+							th:attr="data-id-propuesta=${c.propuesta.id}, data-id=${c.id}">Ver tu valoración</button>
+						<div th:if="${c.estado} eq 'EN_VALORACION'" >
+						<button th:unless="${#lists.contains(valoradas,c.id)}" class="w3-btn btnColor w3-margin btnValorar"
+							th:attr="data-id-propuesta=${c.propuesta.id}, data-id=${c.id}">Valorar</button>
+						<button th:if="${#lists.contains(valoradas,c.id)}" class="w3-btn btnColor w3-margin btnMostrarValoracion"
+							th:attr="data-id-propuesta=${c.propuesta.id}, data-id=${c.id}">Ver tu valoración</button>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+
+	<!-- Paginacion -->
+	<div th:replace="fragments/navigation.html :: pagination"></div>
+
+</div>

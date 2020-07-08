@@ -1,0 +1,90 @@
+Meter propuesta en clase Evento para enlazar los chat con la propuesta, sino como se saca.
+Ver tablas import.sql
+
+
+
+
+
+*****************************************************************************************************************************************************************************
+Tabla Eventos
+    * recomiendo usar un enum "Tipo", que se puede incluir fćilmente en consultas preparadas
+    @NamedQueries({
+	@NamedQuery(name="User.byUsername",
+	query="SELECT u FROM User u "
+			+ "WHERE u.username = :username AND u.tipo = 'PRIVADO'"
+
+            - búsqueda (mismo receptor que emisor)
+            - evento-admin: notificaciones para administrador (emisor quien la causa, receptor el admin)
+            - chat
+            - privado
+    
+
+
+
+Imágenes: mejor no tener campos "imagen" en la BD, porque si tienes una imagen para usuario 5, la buscas vía
+
+    File f = localData.getFile("user", ""+id); // devuelve /tmp/iw/user/5
+    LocalData lo saca de application.properties (que se puede cambiar) - y vale por defecto es.ucm.fdi.base-path: /tmp/iw
+
+Fechas en tablas
+    LocalDateTime (ya no se usa Date) en Java -> Timestamp
+    https://github.com/manuel-freire/iw1920/blob/master/plantilla/src/main/java/es/ucm/fdi/iw/control/MessageController.java
+    https://github.com/manuel-freire/iw1920/blob/master/plantilla/src/main/java/es/ucm/fdi/iw/control/UserController.java#L135
+    
+    LocalDateTime.now() -> devuelve "ahora" en LocalDateTime
+    https://stackoverflow.com/a/34700080/15472
+
+    // sólo con fecha (sin hora)
+    LocalDate localDate = LocalDate.parse("2011-11-30", DateTimeFormatter.ISO_LOCAL_DATE);
+    LocalDateTime localDateTime = localDate.atTime(23, 59, 59);
+    System.out.println(localDateTime); // 2011-11-30T23:59:59
+
+    // parseando fecha-con-hora
+    LocalDateTime localDateTime =  LocalDateTime.parse(fecha-JS-ISO, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+    '2011-12-03T10:15:30'
+
+    // en SQL (versión HyperSQL)
+    '9999-12-31 00:00:00'  ó CURRENT_DATE
+
+    // generando fechas en JS
+    new Date().toISOString() => 2011-10-05T14:48:00.000Z
+
+Cómo gestionar notificaciones
+    https://github.com/manuel-freire/iw1920/blob/master/plantilla/src/main/resources/static/js/iwclient.js#L14
+        
+    // en plantilla
+    const ws = {		
+        //...
+        receive: (text) => {
+            console.log(text);
+        },
+    }
+
+    // cómo lo gestionas
+    ws.receive = (t) => laFuncionQueQuieroQueLoManeje;
+
+    gin.fdi.ucm.es:8080
+    http://gin.fdi.ucm.es:8080/user/1
+
+    https://github.com/manuel-freire/iw1920/blob/master/plantilla => ver cómo funcionan los mensajes 📬	
+
+
+Registrarse en el login
+    En el SecurityConfig, puedes dar una pantalla de login alternativa
+        donde permites hacer login normal (pero ahora defines tú los campos, que tienen que ser idénticos a los del login autogenerado)
+        y además tienes un enlace a "registro", que cuando haces post
+            si todo bien, te añade el usuario y redirige a login
+        Dentro del securityconfig
+		.formLogin()
+			.loginPage("miPaginaDeLogin")	// <-- debe imitar el login normal, pero ahora puedes hacerlo estiloso. Es una ruta, añadirla a algun controlador
+
+
+Sí quieres usar DataBinging con fechas(Por ejemplo recoger la fecha de un formulario). Debes poner esto en el controller
+
+@InitBinder
+	public void initBinder(WebDataBinder webDataBinder) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		webDataBinder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat,false));
+	}
+
+    

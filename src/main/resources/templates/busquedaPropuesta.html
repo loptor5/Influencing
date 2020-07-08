@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<th:block th:replace="fragments/head.html :: header" />
+	<link rel="stylesheet" type="text/css" href="css/busquedaPropuesta.css" />
+	<script src="js/busquedaPropuesta.js" type="text/javascript"></script>
+	<title>Influencing: Búsqueda de Propuestas</title>
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header>
+		<div th:replace="fragments/navigation.html :: navBar(nombrePagina='BÚSQUEDA DE PROPUESTAS')"></div>
+		<div th:replace="fragments/navigation.html :: tagBar(nombrePagina='BÚSQUEDA DE PROPUESTAS')"></div>
+	</header>
+	
+	<!-- Resultado busqueda de propuestas -->
+	<div id ="divPropuestas" class="content">
+		<div th:replace="fragments/resultadoBusquedaPropuestas.html (resultadoBusqueda=${propuestas})"> </div>
+	</div>
+
+	<!-- Footer -->
+	<footer th:replace="fragments/navigation.html :: footer"></footer>
+	
+	<!-- Modal -->
+	<div th:replace="fragments/modal.html"></div>
+
+	<!-- Mensaje de informacion -->
+	<p id="mensajeInfo" th:text="${mensaje}" hidden></p>
+
+</body>
+
+</html>

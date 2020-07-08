@@ -1,0 +1,49 @@
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+
+
+.box {
+	width: 90%;
+	box-shadow: 0 1px 3px -2px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  border-radius: 20px;
+  margin: 2%;
+  /*padding: 1% !important;*/
+  background-color: #f9f9f9c4;
+  border: solid 1pt lightgrey;
+	min-height: 1px;
+  height: 100%;
+}
+
+.w3-row-padding{
+  text-align: center;
+}
+.tocho{
+  display: flex;
+  flex-direction: column;
+  
+}
+
+input[type=text] {
+    margin: auto;
+    padding: 6px;
+    margin-top: 8px;
+    margin-right: 3%;
+    border: none;
+    font-size: 17px;
+    height: 25px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    width: 90%;
+    
+}
+
+input[type=checkbox] {
+  transform: scale(3);
+  float: right;
+}
+
+
+.title{
+	height: 100px;
+  background-color: #6ed1dd;
+	display: block;
+}

@@ -1,0 +1,197 @@
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway" , sans-serif !important;}
+
+body{
+	position: relative;
+	min-height: 100vh;
+}
+
+.header-config{
+    background-color: #6ed1dd;                             /*Color que está en los moqups*/
+}
+
+.footer-config{
+    background-color: #000000;
+    color: #FFFFFF; 
+}
+
+.inactivo{
+	font-style: italic;
+}
+
+.negrita{
+	font-weight: bold;
+}
+
+.inputEdad{
+	width:50%;
+	align-self:center;
+}
+
+input{
+	text-align:center;
+}
+
+.estrella {
+	text-decoration: none;
+	font-size: 32px;
+	font-size: 1.5rem;
+	color: #F1C40F;
+}
+
+.divFlexSpaceEvenly{
+	display:flex;
+	justify-content: space-evenly;
+}
+
+a:hover{
+	color : #1b3879;
+	cursor: pointer;
+}
+
+.divFlex{
+	display:flex !important;
+}
+
+
+#btnNumeroNotificaciones{
+	width: fit-content;
+}
+
+.horizontalBar {
+    margin: 0 auto;
+    width: max-content;
+}
+
+#desplegableUsuario{
+	right: 0;
+}
+
+
+.inputCentrado{
+	text-align: center;
+}
+
+
+#cuadroBusquedaTagBar {
+	margin: auto;
+    padding: 6px;
+    margin-top: 8px;
+    margin-right: 20%;
+    margin-left: 20%;
+    border: none;
+    font-size: 17px;
+    height: 25px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    width: 40%;
+    min-width: 200px;
+}
+
+.btnColor {
+    background-color: #77d4df;
+
+}
+
+.boton{
+    text-align: center;
+	background-color: #77d4df;
+	height: 35px;
+	width: fit-content;
+	font-family: inherit;
+    border-radius: 10px;
+	margin: auto;
+}
+
+.container{
+    text-align: center !important;
+}
+
+.divResultadoBusqueda{
+	display: flex;
+	flex-direction: column;
+	align-items:center;
+}
+
+.divCentrado{
+    text-align: center;
+    align-items: center;
+}
+
+.logo{
+    font-family: Aclonica;
+    font-size: xxx-large;
+    font-weight: bold;
+    text-decoration: none;
+    margin-left: 1%;
+}
+
+#bodyLogin {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #eee;
+}
+
+.formLogin {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+.generalWebBody{
+	min-height: 71%;
+	overflow:hidden;
+}
+
+input{
+	border-radius: 20px;
+	box-shadow: 0px 0px 9px 1px rgba(0,0,0,0.12), 1px 1px 2px rgba(0,0,0,0.24);
+
+}
+
+.tags {
+    border: 1px solid deepskyblue !important;
+    padding: 4px !important;
+    margin: 2px;
+	width: fit-content;
+    min-width: 50px;
+    border-radius:12px;
+}
+
+ul {
+    margin: auto !important;
+    list-style-type: none;
+    padding: 0;
+    overflow: hidden;
+    background-color: #77d4df;
+    border-radius: 8px;
+    width: fit-content;
+  }
+  
+li {
+    float: left;
+    border-right:1px solid #bbb;
+}
+
+li:last-child {
+    border-right: none;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #1695a5;
+}
+
+.active {
+    background-color: #1695a5;
+}
+
+.content{
+	padding-bottom: 91px;
+}

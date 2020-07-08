@@ -1,0 +1,47 @@
+
+<div th:if="${#lists.isEmpty(resultadoBusqueda)}" class="divCentrado">
+	<h3>No hay resultados</h3>
+</div>
+<div th:unless="${#lists.isEmpty(resultadoBusqueda)}">
+
+	<div class="w3-row-padding divFlex">
+
+		<div th:each="prop: ${resultadoBusqueda}" class="w3-third w3-container w3-margin-bottom box">
+			<div class="w3-container w3-white info divResultadoBusqueda">
+				
+				<!-- Imagen-->
+				<div class="imagen" th:attr="data-id=${prop.id}">
+					<img th:src="@{/propuesta/{id}/photo(id=${prop.id})}" class="w3-hover-opacity imgPerfilBusqueda">
+				</div>
+
+
+				<!-- Tarjeta Detalles -->
+				<div class="divCentrado w3-container w3-light-grey w3-round-large w3-margin">
+
+					<!-- Nombre Propuesta -->
+					<h3><b th:text="${prop.nombre}"></b></h3>
+
+					<!-- Nombre empresa-->
+					<p>Compañia: <b th:text="${prop.empresa.nombre}" class="bNombreEmpresa" th:attr="data-id=${prop.empresa.id}"></b></p>
+
+					<!-- Tags -->
+					<div>
+						<button th:each="tag:${#strings.listSplit(prop.tags, ',')}" class="w3-button w3-white tags tagFilter" th:attr="data-id=${tag}" th:text="${tag}"></button>
+					</div>
+
+					<!-- Descripcion propuesta (limitar) -->
+					<p th:text="${prop.descripcion}"></p>
+
+					<!-- Detalles-->
+					<button class="w3-btn btnColor w3-margin btnDetalles" th:attr="data-id=${prop.id}">Detalles</button>
+					
+				</div>
+				
+			</div>		
+		</div>
+	</div>
+
+	<!-- Paginacion -->
+	<div th:replace="fragments/navigation.html :: pagination"></div>
+
+</div>

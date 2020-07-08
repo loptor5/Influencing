@@ -1,0 +1,89 @@
+.global{
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+
+.title1{
+    font-size: x-large;
+    font-weight: bold;
+    text-align: center;
+}
+
+.description{
+    text-align: center;
+    font-weight: bold;  
+}
+
+.description_div{
+    
+    vertical-align: middle;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    
+}
+
+.description_input{
+    align-items: center;
+    display: flex;
+    vertical-align: middle;
+}
+
+a:link, a:visited, a:active{
+    text-decoration:none;
+    color:white;
+}
+
+.global_div{
+	padding-bottom: 4%;
+}
+
+.right_panel{
+	height:600px;
+}
+
+.content{
+	margin-left: 10px;
+}
+
+.control_panel{
+	background-color:  #F7F6F6;
+	height: 280px;
+    width: 550px;
+	border-radius: 20px;
+}
+
+.messages_panel{
+	background-color:  #F7F6F6;
+	height: 530px;
+    width: 550px;
+	border-radius: 20px;
+	margin-top: 10px;
+}
+
+.dark_block{
+    background-color: #D6D6D6;
+    height: 120px;
+    width: 510px;
+    margin-top: 20px;
+	border-radius: 10px;
+}
+
+.button_row_message{
+    display: flex;
+    justify-content: center;
+}
+
+.button{
+	border-radius: 10px;
+	
+}
+
+.proposal_block{
+    background-color: #F7F6F6;
+    height: 530px;
+    width: 550px;
+    margin-top: 10px;
+	border-radius: 20px;
+}

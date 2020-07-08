@@ -1,0 +1,118 @@
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+
+
+h2{
+	padding-top: 1em;
+}
+
+.box {
+	width: 90%;
+	box-shadow: 0 1px 3px -2px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  border-radius: 20px;
+  margin: 2%;
+  padding: 1% !important;
+  background-color: #f9f9f9c4;
+  border: solid 1pt lightgrey;
+	min-height: 1px;
+  height: 100%;
+}
+
+input[type=text] {
+    margin: auto;
+    padding: 6px;
+    margin-top: 8px;
+    margin-right: 3%;
+    border: none;
+    font-size: 17px;
+    height: 25px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    width: 90%;
+    
+}
+
+input[type=checkbox] {
+  transform: scale(3);
+  float: right;
+}
+
+input[type=date] {
+  margin: 0 1em 0 1em;
+}
+
+input[type=file] {
+  margin: 0 1em 0 1em;
+}
+
+
+.title{
+	height: 100px;
+  	background-color: #6ed1dd;
+	display: block;
+}
+
+.tags {
+    border: 1px solid deepskyblue;
+    padding: 4px;
+    margin: 2px;
+	width: fit-content;
+    min-width: 50px;
+}
+
+.contenido{
+	display:flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	padding: 0 3em 0 3em;
+}
+
+.texto-propuesta{
+	display:flex;
+	flex-direction: column;
+	align-items: center;
+	width:70%;
+	align-self: center;
+}
+
+.edad-propuesta{
+	display:flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+ #edades{
+	margin: 0 1em 0 1em;
+}
+
+.periodo-propuesta{
+	display:flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.imagen-propuesta{
+	display:flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.tags-propuesta{
+	display:flex;
+	padding: 2em 0 1em 0;
+	justify-content: center;
+	align-items: center;
+}
+
+.btn-publicar{
+	width: 5%;
+	align-self: center;
+}
+
+.boton{
+	border-radius:20px;
+	background-color: #6ed1dd;
+	border-top: 1px solid #CCCCCC;
+	border-right: 1px solid #333333;
+	border-bottom: 1px solid #333333;
+	border-left: 1px solid #CCCCCC;
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<!--  SDF-->
+<head>
+    <th:block th:replace="fragments/head.html :: header"/>
+    <link href="css/administracion.css" rel="stylesheet"/>
+</head>
+
+<body class="general">
+
+    <!-- Header -->
+    <header>
+        <div th:replace="fragments/navigation.html :: navBar(nombrePagina='ADMINISTRACIÓN')"></div>
+    </header>
+    <main>
+
+        
+        <div class="principal">
+            <div class = "subheader">
+                <div class="enlaces">
+                    <a href="" class="category">Influencers</a>
+                    <a href="" class="category">Empresas</a>
+                    <a href="" class="category">Propuestas</a>
+                    <a href="" class="category">Denuncias</a>
+                </div>
+                <div class="busqueda">
+                    <form>
+                        <input type="text" class="textoBusqueda" placeholder="  Nombre de usuario">
+                        <input type="submit" value="Buscar" class="btnEnviar">
+                    </form>
+                </div>
+				<div class="dropdown">
+					<span class="nombre-dropdown">Nombre administrador</span>
+					<div class="dropdown-content">
+						<div class="dropdown-element">							  
+							<p>Ultimas notificaciones</p>
+							<div class="dropdown-notificaciones" th:each="notificacion: ${notificaciones}">
+								<p th:text="${notificacion.descripcion}">Notificacion</p>
+							</div>
+							<span onclick="document.getElementById('id01').style.display='block'" class="dropdown-boton"> Ver todas</span>
+						</div>
+						<div class="dropdown-element">
+							<a href="" class="dropdown-boton"> Cerrar sesion</a>
+						</div>
+					</div>
+				</div>
+            </div>
+            <div class="contenido">
+                
+                <div class="recientes">
+                    <h3>Búsquedas recientes</h3>
+                    <ul class="profilesList" th:each="perfil:${busquedas}">
+                        <li>
+                            <div class="usuario">
+                                <div class="imagenPerfil">
+                                    <img width="50" height="50" src="img/perfilIcon.svg">
+                                </div>
+                                <div class="opcionesPerfil">
+                                    <p th:text="${perfil.nombre} - {$perfil.roles} ({$perfil.estado})"> Nombre de perfil - Tipo perfil (no verificado)</p>
+                                    <div class="botonesAdmin">
+                                        <a href="" class="boton">Editar usuario</a>
+                                        <a href="" class="boton">Bloquear usuario</a>
+                                        <a href="" class="boton">Verificar usuario</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="id01" class="w3-modal">
+            <div class="w3-modal-content">
+
+				<div th:replace="notificaciones.html :: notificaciones(notificaciones=${notificaciones})"></div>
+            </div>
+        </div>
+    </main>
+    <!-- Footer -->
+	<footer th:replace="fragments/navigation.html :: footer"></footer>
+</body>
+
+</html>

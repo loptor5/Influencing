@@ -1,0 +1,202 @@
+<head>
+  <th:block th:replace="fragments/head.html :: header" />
+  <link rel="stylesheet" href="css/propuesta.css">
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header>
+    <div th:if="${modo} eq 'VISTA' or ${modo} eq 'CREACION'">
+      <div th:replace="fragments/navigation.html :: modalBar(nombrePagina='PROPUESTA')"></div>
+    </div>
+	    <div th:if="${modo} eq 'EDICION'">
+      <div th:replace="fragments/navigation.html :: modalBar(nombrePagina='EDICION')"></div>
+    </div>
+
+    <div th:if="${modo} eq 'ULTIMATUM'or ${modo} eq 'VISTA-ULTIMATUM'">
+      <div th:replace="fragments/navigation.html :: modalBar(nombrePagina='ULTIMATUM')"></div>
+    </div>
+    <div th:if="${modo} eq 'CONTRATACION'">
+      <div th:replace="fragments/navigation.html :: modalBar(nombrePagina='CONTRATACIÓN')"></div>
+    </div>
+  </header>
+
+
+  <!-- Contenido propuesta -->
+  <div class="w3-display-container">
+    <form class="contenido-propuesta"
+      th:action="${modo=='VISTA'}?@{/propuesta/solicitaPropuesta}
+	      :(${modo=='VISTA-ULTIMATUM'}?@{/propuesta/decideUltimatum}:(${modo=='ULTIMATUM'}?@{/propuesta/enviaUltimatum}:
+		(${modo=='EDICION'}?@{/propuesta/modifica}:@{/propuesta/registraPropuesta})))"
+      method="POST" enctype="multipart/form-data">
+
+      <!-- Valor id oculto -->
+      <input th:if="${modo}!='CREACION' " type="hidden" name="idPropuesta" th:value="${propuesta.id}">
+      <input th:if="${modo}=='ULTIMATUM' " type="hidden" name="idCandidatura" th:value="${idCandidatura}">
+
+
+      <!-- Texto propuesta -->
+      <div class="texto-propuesta">
+        <div th:if="${modo} eq 'CREACION'">
+
+          <!-- Nombre -->
+          <h2>Nombre de la propuesta</h2>
+          <input name="nombre" type=text required size=30>
+
+          <!-- Descripcion-->
+          <h2>Descripción</h2>
+          <textarea name="descripcion" rows="4" cols="50" required></textarea>
+        </div>
+
+        <div th:if="${modo} eq 'EDICION'">
+
+          <!-- Nombre -->
+          <h2>Nombre de la propuesta</h2>
+          <input name="nombre" type=text th:value="${propuesta.nombre}" required size=30>
+
+          <!-- Descripcion-->
+          <h2>Descripción</h2>
+          <textarea name="descripcion" rows="4" cols="50" th:text="${propuesta.descripcion}"required></textarea>
+        </div>
+
+        <div
+          th:if="${modo} eq 'ULTIMATUM' or ${modo} eq 'VISTA' or ${modo} eq 'VISTA-ULTIMATUM' or ${modo} eq 'CONTRATACION'">
+
+          <!-- Nombre -->
+          <h2 th:text="${propuesta.nombre}">Nombre de propuesta</h2>
+
+          <!-- Descripcion -->
+          <p th:text="${propuesta?.descripcion}">Aqui va la descripcion detallada de la propuesta</p>
+        </div>
+
+      </div>
+
+      <!-- Edad Objetivo de la propuesta -->
+      <div class="edad-propuesta">
+
+        <h2>Edad objetivo</h2>
+        <p>Edades comprendidas entre
+
+          <select class="inputCentrado" id="edades" name="edades"
+            th:if="${modo} eq 'ULTIMATUM' or ${modo} eq 'CREACION'" required>
+            <option value="" disabled selected>Elige la edad objetivo</option>
+            <option value="5-10">5 - 10</option>
+            <option value="10-15">10 - 15</option>
+            <option value="15-20">15 - 20</option>
+            <option value="20-25">20 - 25</option>
+            <option value="25-30">25 - 30</option>
+            <option value="30-35">30 - 35</option>
+            <option value="35-40">35 - 40</option>
+            <option value="40-45">40 - 45</option>
+          </select>
+
+		<select class="inputCentrado" id="edades" name="edades"
+            th:if="${modo} eq 'EDICION'" required th:value="${propuesta.edadMinPublico + '-' + propuesta.edadMaxPublico}">
+            <option value="5-10">5 - 10</option>
+            <option value="10-15">10 - 15</option>
+            <option value="15-20">15 - 20</option>
+            <option value="20-25">20 - 25</option>
+            <option value="25-30">25 - 30</option>
+            <option value="30-35">30 - 35</option>
+            <option value="35-40">35 - 40</option>
+            <option value="40-45">40 - 45</option>
+          </select>
+
+
+          <span th:if="${modo} eq 'VISTA' or ${modo} eq 'VISTA-ULTIMATUM' or ${modo} eq 'CONTRATACION'"
+            th:text="${propuesta?.edadMinPublico + ' - ' + propuesta?.edadMaxPublico}"> </span>
+
+          años</p>
+
+      </div>
+
+
+      <!-- Sueldo de la propuesta -->
+      <div class="sueldo-propuesta">
+        <h2>Sueldo mensual</h2>
+        <input th:if="${modo} eq 'ULTIMATUM' or ${modo} eq 'CREACION'" required type="number" name="sueldo" min="0"
+          class="inputCentrado">
+
+		 <input th:if="${modo} eq 'EDICION'" required type="number" name="sueldo" min="0"
+          class="inputCentrado" th:value="${propuesta.sueldo}">
+
+        <span th:if="${modo} eq 'VISTA' or ${modo} eq 'VISTA-ULTIMATUM' or ${modo} eq 'CONTRATACION'"
+          th:text="${propuesta.sueldo + '€'}"> </span>
+      </div>
+
+
+      <!-- Periodo -->
+      <div class="periodo-propuesta">
+        <h2>Periodo de la propuesta</h2>
+        <p th:if="${modo} eq 'ULTIMATUM' or ${modo} eq 'CREACION'">De <input type="date" name="fechaInicio" required>
+          a <input type="date" name="fechaFin" required></p>
+
+        <p th:if="${modo} eq 'EDICION'">De <input type="date" name="fechaInicio" th:value="${fechaInicio}" required>
+          a <input type="date" name="fechaFin" th:value="${fechaFin}" required></p>
+
+        <p th:if="${modo} eq 'VISTA' or ${modo} eq 'VISTA-ULTIMATUM' or ${modo} eq 'CONTRATACION'" th:text="${'Desde ' + #temporals.format(propuesta.fechaInicio,
+        'dd-MM-yyyy') + ' hasta ' + #temporals.format(propuesta.fechaFin,'dd-MM-yyyy')}"></p>
+      </div>
+
+
+      <!-- Imagen -->
+      <div class="imagen-propuesta">
+        <h2>Imagen campaña</h2>
+        <span th:if="${modo eq 'CREACION'}">
+          <input type="file" name="imagenPropuesta" required>
+        </span>
+		<span th:if="${modo eq 'EDICION'}">
+          <input type="file" name="imagenPropuesta">
+        </span>
+		
+        <img
+          th:unless="${modo} eq 'CREACION'"
+          id="imagen-propuesta" th:src="@{/propuesta/{id}/photo(id=${propuesta.id})}">
+      </div>
+
+      <!-- Tags -->
+      <div class="tags-propuesta">
+        <h2>Tags relacionados con la propuesta</h2>
+        <textarea th:if="${modo} eq 'CREACION'" name="tags" rows="2" cols="50" required
+          placeholder="Introduzca los tags separados por comas"></textarea>
+        <textarea th:if="${modo} eq 'EDICION'" th:text="${propuesta.tags}" name="tags" rows="2" cols="50" required
+           ></textarea>
+
+        <div
+          th:if="${modo} eq 'VISTA' or ${modo} eq 'ULTIMATUM' or ${modo} eq 'VISTA-ULTIMATUM' or ${modo} eq 'CONTRATACION'">
+          <p th:each="tag:${#strings.listSplit(propuesta.tags, ',')}" class="w3-button w3-white tags" th:text="${tag}"></p>
+        </div>
+      </div>
+
+      <!-- Botones interactivos -->
+      <div class="divCentrado"> 
+        <button th:if="${modo} eq 'EDICION'" class="w3-btn btnColor w3-margin" name="idPropuesta" th:value="${propuesta.id}" id="btnEditarPropuesta">Editar</button>
+        <button  th:if="${modo} eq 'CREACION'" class="w3-btn btnColor w3-margin" id="btnPublicarPropuesta">Publicar</button>
+        <button  th:if="${modo} eq 'VISTA' and ${session.u.hasRole('INFLUENCER') and !apuntadoPreviamente}" class="w3-btn btnColor w3-margin">Apuntarse</button>
+        <div class="botones-propuesta" th:if="${modo} eq 'VISTA-ULTIMATUM' and not ${propio}"> 
+          <button class="w3-btn btnColor w3-margin btnAceptar" name="decision" value="true">Aceptar</button>
+          <button  class="w3-btn btnColor w3-margin btnRechazar" name="decision" value="false">Rechazar</button>
+        </div>
+      </div>
+
+    </form>
+
+    <!-- Boton Denunciar -->
+    <button th:if="${(modo eq 'VISTA' or modo eq 'VISTA-ULTIMATUM' or modo eq 'CONTRATACION') and propuesta.empresa.id != session.u.id}" 
+    class="w3-display-topright" id="btnDenunciar" th:attr="data-id=${propuesta.empresa.id}">Denunciar</button>
+
+	<!-- Boton Editar-->
+    <button th:if="${(modo eq 'VISTA' or modo eq 'VISTA-ULTIMATUM' or modo eq 'CONTRATACION') and propuesta.empresa.id == session.u.id}" 
+    class="w3-display-topright" id="btnEditarPropuestaPropia" th:attr="data-id=${propuesta.id}">Editar</button>
+
+  </div>
+  
+  <!-- Boton de cerrar -->
+  <div class="divCentrado"> 
+  	<button  th:if="${modo} eq 'ULTIMATUM'" id="btnEnviarUltimatum" class="w3-btn btnColor w3-margin">Enviar</button>
+    <button th:if="${modo} eq 'CONTRATACION'" class="w3-btn btnColor w3-margin" onclick="document.getElementById('modal').style.display='none'">Cerrar contratación</button>
+    <button th:if="${modo} eq 'VISTA' and ${session.u.hasRole('EMPRESA')}" class="w3-btn btnColor w3-margin" onclick="document.getElementById('modal').style.display='none'">Cerrar propuesta</button>
+  </div>
+
+</body>

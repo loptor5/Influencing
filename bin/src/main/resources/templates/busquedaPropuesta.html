@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<th:block th:replace="fragments/head.html :: header"/>
+<link rel="stylesheet" type="text/css" href="css/busquedaPropuesta.css" />
+</head>
+<body style="width:100%" class="general">
+
+<!-- !PAGE CONTENT! -->
+<div>
+
+	<!-- Header -->
+	<header>
+		<div th:replace="fragments/navigation.html :: navBar(nombrePagina='BÚSQUEDA DE PROPUESTAS')"></div>
+		<div th:replace="fragments/navigation.html :: tagBar"></div>
+	</header>
+
+	<!-- First Photo Grid-->
+	<div class="w3-row-padding">
+		
+		<div th:each="prop: ${propuestas}" class="w3-third w3-container w3-margin-bottom box">
+		
+				<div class="w3-container w3-white info">
+					<div class="imagen">
+						<img src="data:image/png;base64,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"
+							style="width:80%" class="w3-hover-opacity">
+					</div>
+					<p><b th:text="${prop.nombre}">Proposal Name</b></p>
+					<p>Company: <b th:text="${prop.empresa.nombre}">Company Name</b></p>
+					<div class="score">
+						<th:block th:each="i: ${#numbers.sequence(1, prop.empresa.score)}">					
+						<i class="fa fa-star w3-margin-right"></i>
+						</th:block>
+					</div>
+					<div th:each="tag: ${prop.tags}">
+						<button class="w3-button w3-white tags" style="border-radius:12px;" th:text="${tag}">Tag</button>
+					</div>
+					<p th:text="${prop.descripcion}">Praesent tincidunt sed tellus ut rutrum.</p>
+				</div>
+			
+		</div>
+	</div>
+
+
+	<!-- Pagination -->
+	<div class="w3-center w3-padding-32">
+		<div class="w3-bar">
+			<a href="#" class="w3-bar-item w3-button w3-hover-blue">«</a>
+			<a href="#" class="w3-bar-item w3-blue w3-button">1</a>
+			<a href="#" class="w3-bar-item w3-button w3-hover-blue">2</a>
+			<a href="#" class="w3-bar-item w3-button w3-hover-blue">3</a>
+			<a href="#" class="w3-bar-item w3-button w3-hover-blue">4</a>
+			<a href="#" class="w3-bar-item w3-button w3-hover-blue">»</a>
+		</div>
+	</div>
+
+	<!-- Footer -->
+	<footer th:replace="fragments/navigation.html :: footer"></footer>
+
+</div>
+
+</body>
+</html>

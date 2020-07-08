@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<th:block th:replace="fragments/head.html :: header"/>
+	<link rel="stylesheet" type="text/css" href="css/busquedaPerfil.css" />
+</head>
+
+<body style="width:100%" class="general">
+
+	<!-- !PAGE CONTENT! -->
+	<div>
+
+		<!-- Header -->
+		<header>
+			<div th:replace="fragments/navigation.html :: navBar(nombrePagina='BÚSQUEDA DE PERFILES')"></div>
+			<div th:replace="fragments/navigation.html :: tagBar"></div>
+		</header>
+
+		<!-- First Photo Grid-->
+		<div class="w3-row-padding">
+
+			<div th:each="usuario: ${usuarios}" class="w3-third w3-container w3-margin-bottom box">
+				<div class="w3-container w3-white info">
+					<div class="imagen">
+						<img src="https://www.pngkey.com/png/full/230-2301779_best-classified-apps-default-user-profile.png"
+							style="width:80%" class="w3-hover-opacity">
+					</div>
+					<p><b th:text="${usuario.nombre +' '+ usuario.apellidos}">Usuario</b></p>
+					<div class="score">
+						<th:block th:each="i: ${#numbers.sequence(1, usuario.score)}">					
+						<i class="fa fa-star w3-margin-right"></i>
+						</th:block>
+					</div>
+					<div th:each="tag: ${usuario.tags}">
+						<button class="w3-button w3-white tags" style="border-radius:12px;" th:text="${tag}">Tag</button>
+					</div>
+					<p th:text="${usuario.estado}">Praesent tincidunt sed tellus ut rutrum.</p>
+				</div>
+			</div>
+		</div>
+
+
+			<!-- Pagination -->
+			<div class="w3-center w3-padding-32">
+				<div class="w3-bar">
+					<a href="#" class="w3-bar-item w3-button w3-hover-blue">«</a>
+					<a href="#" class="w3-bar-item w3-blue w3-button">1</a>
+					<a href="#" class="w3-bar-item w3-button w3-hover-blue">2</a>
+					<a href="#" class="w3-bar-item w3-button w3-hover-blue">3</a>
+					<a href="#" class="w3-bar-item w3-button w3-hover-blue">4</a>
+					<a href="#" class="w3-bar-item w3-button w3-hover-blue">»</a>
+				</div>
+			</div>
+
+			
+			<!-- End page content -->
+		</div>
+
+		<!-- Footer -->
+		<footer th:replace="fragments/navigation.html :: footer"></footer>
+</body>
+
+</html>

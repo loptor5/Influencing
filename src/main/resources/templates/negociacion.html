@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <th:block th:replace="fragments/head.html :: header" />
+    <link href="css/negociacion.css" rel="stylesheet">
+    <script src="js/negociacion.js" type="text/javascript"></script>
+    <title>Influencing: Chat de Negociación</title>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div th:replace="fragments/navigation.html :: navBar(nombrePagina='CHAT DE NEGOCIACIÓN')"></div>
+    </header>
+
+    <!-- Contenido chat de negociacion -->
+    
+	<div class="contenido-negociacion content">
+
+        <!-- Lista de chats -->
+        <div class="lista">
+            <div class="propuesta" th:each="c: ${candidaturas}" th:attr="data-id=${c.id},data-prop-id=${c.propuesta.id}, data-prop-nombre=${c.propuesta.nombre}, 
+                data-otro-nombre=${session.u.hasRole('EMPRESA')?c.candidato.nombre:c.propuesta.empresa.nombre},
+				data-propio-id=${session.u.hasRole('INFLUENCER')?c.candidato.id:c.propuesta.empresa.id},
+				data-estado-candidatura=${c.estado},
+                data-otro-id=${session.u.hasRole('EMPRESA')?c.candidato.id:c.propuesta.empresa.id}">
+                <a><img width="50" height="50" th:src="@{/propuesta/{id}/photo(id=${c.propuesta.id})}"></a> <!-- ¿Insertar imagen? -->
+                <span th:text="${c.propuesta.nombre}"> Nombre de la propuesta</span>
+            </div>
+        </div>
+
+        <!-- Chat-->
+        <div class="chat" id="chat">
+
+            <!-- Barra chat -->
+            <div class="barraChat">
+                <div class="informacionChat">
+                    <a class="perfil"></a>
+                    <a class="nombre"></a>
+                </div>
+                <div class="ultimatum divFlex">
+
+                    <form th:action="@{/propuesta/eliminaCandidatura}"> 
+						<button class="w3-btn w3-red w3-margin" id="eliminaNegociacion" type="submit" name="idCandidatura">Eliminar negociación</button> 
+					</form>
+                    <button class="w3-btn w3-black w3-margin" id="botonUltimatum">Enviar ultimátum</button>
+                </div>
+            </div>
+
+            <!--Contenido Chat -->
+            <div id="contenidoChat">
+
+				<h2 th:if="${#lists.isEmpty(candidaturas)}" class="divCentrado"> No tienes conversaciones</h2>
+			</div>
+            <input id="botonEnviar" type="text" placeholder="Introduzca su mensaje..." hidden>
+        </div>
+
+
+		
+      <!-- Mensaje de informacion -->
+	  <p th:text="${mensaje}" id="mensajeInfo" hidden></p>
+
+    </div>
+	
+	
+    <!-- Footer -->
+    <footer th:replace="fragments/navigation.html :: footer"></footer>
+    
+    <!-- Modal -->
+    <div th:replace="fragments/modal.html"></div>
+    
+</body>
+
+</html>

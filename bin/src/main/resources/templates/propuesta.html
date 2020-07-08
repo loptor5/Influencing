@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<div th:fragment="propuesta (propuestas)">
+
+  <head>
+    <th:block th:replace="fragments/head.html :: header" />
+    <link href="css/propuesta.css" rel="stylesheet" />
+  </head>
+
+  <body style="width:100%" class="general">
+
+    <!-- !PAGE CONTENT! -->
+    <div>
+
+      <!-- Header -->
+      <header>
+        <div th:replace="fragments/navigation.html :: modalBar(nombrePagina='PROPUESTA')"></div>
+      </header>
+
+      <!-- First Field Grid-->
+      <div class="contenido">
+        <div class="texto-propuesta">
+          <h2>Nombre de propuesta</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec,
+            mattis ac
+            neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend
+            tristique,
+            tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium
+            sit
+            amet quis magna. Aenean velit odio, elementum in tempus ut, vehicula eu diam. Pellentesque rhoncus aliquam
+            mattis.
+            Ut vulputate eros sed felis sodales nec vulputate justo hendrerit. Vivamus varius pretium ligula, a aliquam
+            odio
+            euismod sit amet. Quisque laoreet sem sit amet orci ullamcorper at ultricies metus viverra. Pellentesque
+            arcu
+            mauris, malesuada quis ornare accumsan, blandit sed diam.</p>
+        </div>
+
+        <div class="edad-propuesta">
+
+          <h2>Edad Objetivo</h2>
+          <p>Edades comprendidas entre
+            <select id="edades" name="edades">
+              <option value="e1">1 - 10</option>
+              <option value="e2">10 - 15</option>
+              <option value="e3">15 - 20</option>
+              <option value="e4">20 - 30</option>
+            </select>años</p>
+
+        </div>
+
+        <div class="periodo-propuesta">
+
+          <h2>Periodo de la propuesta</h2>
+          <p>De <input type="date">
+            a <input type="date"></p>
+
+        </div>
+        <div class="imagen-propuesta">
+
+          <h2>Imagen Campaña</h2>
+          <span>
+            <input type="file" name="imagenPropuesta"><input type="submit" value="Subir" class="boton">
+          </span>
+
+        </div>
+        <div class="tags-propuesta">
+          <button class="w3-button w3-white tags" style="border-radius:12px;">Tag</button>
+          <button class="w3-button w3-white tags" style="border-radius:12px;">Tag</button>
+          <button class="w3-button w3-white tags" style="border-radius:12px;">Tag</button>
+        </div>
+        <input type="button" value="Publicar" class="boton btn-publicar">
+      </div>
+
+      <!-- End page content -->
+    </div>
+
+
+  </body>
+</div>
+
+</html>

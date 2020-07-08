@@ -1,0 +1,276 @@
+<head>
+  <th:block th:replace="fragments/head.html :: header" />
+  <link rel="stylesheet" type="text/css" href="css/perfil.css" />
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header>
+    <div th:if="${modo} eq 'VISTA' or ${modo} eq 'EDICION'">
+      <div th:replace="fragments/navigation.html :: modalBar(nombrePagina='PERFIL')"></div>
+    </div>
+    <div th:if="${modo} eq 'CREACION'">
+      <div th:replace="fragments/navigation.html :: modalBar(nombrePagina='REGISTRO')"></div>
+    </div>
+  </header>
+
+  <!-- Contenido perfil -->
+  <div class="w3-display-container">
+
+    <form id="formularioPerfil" th:action="${modo=='EDICION'}?@{/perfil/edicion}:@{/perfil/registra}" method="POST"
+      enctype="multipart/form-data">
+
+      <!-- Nombre de la cuenta (CREACION, EDICION) -->
+      <div class="divCentrado" th:if="${modo} eq 'CREACION' or ${modo} eq 'EDICION'">
+        <h2 class="w3-padding-24">Nombre cuenta</h2>
+        <input th:if="${modo} eq 'CREACION'" type="text" name="nombreCuenta" placeholder="Introduzca su usuario"
+          required class="w3-input"></input>
+        <span th:if="${modo} eq 'EDICION'" th:text="${usuario.nombreCuenta}" class="w3-padding-24">Nombre cuenta</span>
+      </div>
+
+
+
+      <!-- Nombre y apellidos (EDICION, VISTA) -->
+      <div th:unless="${modo} eq 'CREACION'">
+
+        <!-- [EMPRESA] -->
+        <div th:if="${usuario.hasRole('EMPRESA')}" class="divCentrado">
+          <h2>Nombre de la empresa</h2>
+          <span th:if="${modo} eq 'VISTA'" th:text="${usuario.nombre}"></span>
+          <input th:if="${modo} eq 'EDICION'" class="w3-input" type="text" name="nombre" th:value="${usuario.nombre}"
+            placeholder="Introduzca el nombre de la empresa" required></input>
+          <!-- No se muestran los apellidos -->
+          <input th:if="${modo} eq 'EDICION'" class="w3-margin-top w3-input" type="text" name="apellidos"
+            style="display:none"></input>
+        </div>
+
+        <!-- [No es EMPRESA] -->
+        <div th:unless="${usuario.hasRole('EMPRESA')}" class="divCentrado">
+          <h2>Nombre y apellidos</h2>
+          <span th:if="${modo} eq 'VISTA'" th:text="${usuario.nombre} + ' ' + ${usuario.apellidos}"></span>
+          <input th:if="${modo} eq 'EDICION'" class="w3-input" type="text" name="nombre" th:value="${usuario.nombre}"
+            placeholder="Introduzca el nombre" required></input>
+          <input th:if="${modo} eq 'EDICION'" class="w3-margin-top w3-input" type="text" name="apellidos"
+            placeholder="Introduzca los apellidos"th:value="${usuario.apellidos}" required></input>
+        </div>
+
+      </div>
+
+      <!-- Contraseña (CREACION, EDICION) -->
+      <div class="divCentrado" th:if="${modo} eq 'CREACION' or ${modo} eq 'EDICION'">
+        <h2 class="w3-padding-24">Contraseña</h2>
+        <input th:if="${modo} eq 'CREACION'" type="password" name="pass1" placeholder="Introduzca su contraseña"
+          required class="w3-input"></input>
+        <input th:if="${modo} eq 'EDICION'" type="password" name="pass1" placeholder="Introduzca su  nueva contraseña"
+          class="w3-input" size=30></input>
+        <br>
+        <input th:if="${modo} eq 'CREACION'" type="password" name="pass2" class="w3-margin-top w3-input"
+          placeholder="Repita la contraseña" required></input>
+        <input th:if="${modo} eq 'EDICION'" type="password" name="pass2" class="w3-margin-top w3-input"
+          placeholder="Repita la nueva contraseña"></input>
+      </div>
+
+
+      <!-- Imagen -->
+      <h2 class="w3-padding-24">Imagen perfil</h2>
+      <div class="w3-center" th:if="${modo} eq 'VISTA'">
+        <img id="imagen-perfil" th:src="@{/perfil/{id}/photo(id=${usuario.id})}">
+      </div>
+      <div class="w3-center" th:if="${modo} eq 'EDICION'">
+        <img id="imagen-perfil" th:src="@{/perfil/{id}/photo(id=${usuario.id})}">
+      </div>
+      <div th:unless="${modo} eq 'VISTA'">
+        <input type="file" name="imagenPerfil" class="w3-input w3-border">
+      </div>
+
+
+      <!-- Tags [ADMIN no tiene] -->
+      <div class="w3-center" th:if="${modo eq 'VISTA' and !usuario.hasRole('ADMIN')}">
+			<h2>Tags relacionados con el perfil</h2>
+          <p th:each="i : ${#strings.listSplit(usuario.tags, ',')}" class="w3-button w3-white tags" th:text="${i}">Tags</p>
+      </div>
+
+      <div class="tags-perfil" th:unless="${modo eq 'VISTA'  or (modo eq 'EDICION' and usuario.hasRole('ADMIN'))}">
+          <h2>Tags relacionados con el perfil</h2>
+
+		      <!-- MODO CREACION PERFIL-->
+          <textarea th:if="${modo} eq 'CREACION'" name="tags" rows="2" cols="50" required
+            placeholder="Introduzca los tags separados por comas" class="w3-input w3-border"></textarea>
+
+		      <!-- MODO EDICION PERFIL-->
+          <textarea th:if="${modo} eq 'EDICION'" th:unless="${usuario.hasRole('ADMIN')}" name="tags" rows="2" cols="50" required
+            placeholder="Introduzca los tags separados por comas" th:text="${usuario.tags}" class="w3-input w3-border"></textarea>
+      </div>
+      
+
+      <!-- Selector de Rol (CREACION)-->
+      <div th:if="${modo} eq 'CREACION'">
+        <h2 class="w3-padding-24">Tipo de cuenta</h2>
+        <select class="w3-select w3-border w3-margin-bottom" id="tipoCuenta" name="tipoCuenta" required>
+          <option value="" disabled selected>Elige tu tipo de cuenta</option>
+          <option value="Influencer">Influencer</option>
+          <option value="Empresa">Empresa</option>
+        </select>
+      </div>
+
+      <!-- Valoracion (VISTA, EDICION) [ADMIN no tiene] -->
+      <div class="divCentrado" th:if="${(modo eq 'VISTA' or modo eq 'EDICION') and !usuario.hasRole('ADMIN')}">
+          <h2>Valoración media</h2>
+          <div class="score" th:if="${usuario.numContrataciones!=0}">
+            <th:block th:each="i: ${#numbers.sequence(1, usuario.score)}">					
+              <i class="fa fa-star w3-margin estrella"></i>
+            </th:block>
+            <i th:if="${#strings.substring(usuario.score,2) >= '5'}" class="fa fa-star-half-alt w3-margin estrella"></i>
+          </div>
+          <div class="score" th:if="${usuario.numContrataciones == 0}">
+            <p>No tiene valoraciones aun</p>
+          </div>
+      </div>
+
+
+      <!-- Historial propuestas (VISTA, EDICION) [ADMIN no tiene] -->
+      <div class="w3-center" th:if="${(modo eq 'VISTA' or modo eq 'EDICION') and !usuario.hasRole('ADMIN') }">
+        <h2 class="w3-padding-24">Historial de propuestas</h2>
+        <div id="propuestas">
+          <p th:if="${ #lists.isEmpty(propuestas)}"> No hay propuestas </p>
+          <ul>
+            <li th:each="propuesta : ${propuestas}" th:text="${propuesta.nombre}" class="propuestaAntigua" th:attr="data-id=${propuesta.id}"></li>
+          </ul>
+        </div>
+      </div>
+      
+
+      <!-- Nombre Perfil [EMPRESA] -->
+      <div th:if="${modo} eq 'CREACION'" class="divCentrado" id="divNombreEmpresa" style="display:none">
+        <h2 class="w3-padding-24" id="h2nombre">Nombre de la empresa</h2>
+        <input type="text" id="nombreEmpresa" class="w3-input" name="nombre" placeholder="Introduzca el nombre de la empresa" required></input>
+      </div>
+
+	
+      <!-- Nombre Perfil [INFLUENCER] -->
+      <div th:if="${modo eq 'CREACION'}" class="divCentrado" id="divNombreInfluencer" style="display:none">
+        <h2 class="w3-padding-24" id="h2nombre">Nombre y apellidos</h2>
+        <input type="text"  id="nombreInfluencer" class="w3-input" name="nombre" placeholder="Introduzca su nombre" required></input>
+        <input type="text"  id="apellidosInfluencer" class="w3-margin-top w3-input"  name="apellidos" placeholder="Introduzca sus apellidos"required></input>
+      </div>
+  
+
+      <!-- Perfiles RRSS (EDICION, VISTA) [INFLUENCER] -->
+      <div class="divCentrado" th:if="${(modo eq 'EDICION' or modo eq 'VISTA') and usuario.hasRole('INFLUENCER')}">
+        <div th:if="${usuario.hasRole('INFLUENCER')}">
+
+          <!-- Edad -->
+          <h2 class="w3-padding-24">Edad media de los seguidores</h2>
+
+          <div class="divFlexSpaceEvenly">
+            <div th:if="${modo} eq 'VISTA'" id="edad-media" th:text="${usuario.edad}">Años de media</div>
+            <input th:if="${modo} eq 'EDICION'" type="number" name="edad" min="0" max="100" value="Años de media" th:value="${usuario.edad}" class="inputCentrado inputEdad" required>
+          </div>
+
+          <!-- Seguidores-->
+          <h2 class="w3-padding-24">Perfiles en redes sociales</h2>
+
+          <ul class="w3-ul w3-card-4 divCentrado w3-center">
+			<p th:if="${ #lists.isEmpty(perfilesRRSS)}"> No hay perfiles </p>
+            <li th:each="perfil: ${perfilesRRSS}">
+
+              <!-- Icono RRSS -->
+              <img th:if="${perfil.rrss} eq 'Twitter'" src="img/twitter.png" width="20" />
+              <img th:if="${perfil.rrss} eq 'Facebook'" src="img/facebook.png" width="20" />
+              <img th:if="${perfil.rrss} eq 'Instagram'" src="img/instagram.png" width="20"/>
+              <img th:if="${perfil.rrss} eq 'Youtube'" src="img/youtube.png" width="20" />
+
+              <!-- Nombre RRSS -->
+              <p th:text="${perfil.nombre}"></p>
+              
+              <!-- Numero de seguidores-->
+              <span class="numeroseguidores" th:text="${perfil.numSeguidores}"></span>
+             
+            </li>
+          </ul>
+
+        </div>
+      </div>
+
+      <!-- Perfiles RRSS (CREACION) [INFLUENCER] -->
+      <div class="divCentrado" id="divPerfilesCreacion" style="display:none" th:if="${modo} eq 'CREACION'">
+      
+        <!-- Edad -->
+        <h2 class="w3-padding-24">Edad media de los seguidores</h2>
+
+        <div class="divFlexSpaceEvenly">
+          <input type="number" name="edad" min="0" max="100" placeholder="Años de media" class="inputCentrado w3-input inputEdad">
+        </div>
+
+        <!-- Seguidores-->
+        <h2 class="w3-padding-24">Perfiles en redes sociales</h2>
+
+        <div class="w3-container w3-margin-bottom">
+
+          <!-- Barra de seleccion RRSS -->
+          <div class="w3-row w3-margin">
+            <a onclick="abreEmpresa(event, 'Twitter');">
+              <div class="tablink w3-quarter w3-bottombar w3-hover-light-grey w3-padding w3-border-red">Twitter</div>
+            </a>
+            <a onclick="abreEmpresa(event, 'Facebook');">
+              <div class="tablink w3-quarter w3-bottombar w3-hover-light-grey w3-padding">Facebook</div>
+            </a>
+            <a onclick="abreEmpresa(event, 'Instagram');">
+              <div class="tablink w3-quarter w3-bottombar w3-hover-light-grey w3-padding">Instagram</div>
+            </a>
+            <a onclick="abreEmpresa(event, 'Youtube');">
+              <div class="tablink w3-quarter w3-bottombar w3-hover-light-grey w3-padding">Youtube</div>
+            </a>
+          </div>
+        
+          <!-- Contenido RRSS -->
+          <div id="Twitter" class="empresa w3-container w3-padding" style="display:block">
+            <span><img class="w3-margin" src="img/twitter.png" width="20" />Twitter</span>
+            <input type="text" name="nombreTwitter" placeholder="Nombre de la cuenta" class="w3-input w3-center">
+            <input type="number" name="seguidoresTwitter" placeholder="Nº de seguidores"  min="0" class="w3-input w3-center">
+          </div>
+        
+          <div id="Facebook" class="empresa w3-container w3-padding" style="display:none">
+            <span><img class="w3-margin" src="img/facebook.png" width="20" />Facebook</span>
+            <input type="text" name="nombreFacebook" placeholder="Nombre de la cuenta" class="w3-input w3-center">
+            <input type="number" name="seguidoresFacebook" placeholder="Nº de seguidores"  min="0" class="w3-input w3-center"> 
+          </div>
+        
+          <div id="Instagram" class="empresa w3-container w3-padding" style="display:none">
+            <span><img class="w3-margin" src="img/instagram.png" width="20" />Instagram</span>
+            <input type="text" name="nombreInstagram" placeholder="Nombre de la cuenta" class="w3-input w3-center">
+            <input type="number" name="seguidoresInstagram" placeholder="Nº de seguidores"  min="0" class="w3-input w3-center">
+          </div>
+        
+          <div id="Youtube" class="empresa w3-container w3-padding" style="display:none">
+            <span><img class="w3-margin" src="img/youtube.png" width="20" />Youtube</span> 
+            <input type="text" name="nombreYoutube" placeholder="Nombre de la cuenta" class="w3-input w3-center">
+            <input type="number" name="seguidoresYoutube" placeholder="Nº de seguidores"  min="0" class="w3-input w3-center">
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- Botones interactivos -->
+      <div class="divCentrado">
+        <button th:if="${modo} eq 'EDICION'" class="w3-btn btnColor w3-margin" id="botonGuardarCambios" type="submit">Guardar cambios</button>
+        <button th:if="${modo} eq 'CREACION'" class="w3-btn btnColor w3-margin" id="botonRegistrarseUsuario" type="submit">Registrar usuario</button>
+      </div>
+
+    </form>
+
+    <!-- Boton Denunciar -->
+    <button th:if="${modo eq 'VISTA' and !session.u.hasRole('ADMIN') and !(session.u.getId() == usuario.id)}" class="w3-display-topright" id="btnDenunciar" th:attr="data-id=${usuario.id}">Denunciar</button>
+    <button th:if="${modo eq 'VISTA' and session.u.getId() == usuario.id}" class="w3-display-topright" id="btnEditarPerfil">Editar</button>
+
+  </div>
+
+  <!-- Boton de cerrar -->
+  <div class="divCentrado">
+    <button th:if="${modo} eq 'VISTA'" class="w3-btn btnColor w3-margin" onclick="document.getElementById('modal').style.display='none'">Cerrar perfil</button>
+  </div>
+
+</body>

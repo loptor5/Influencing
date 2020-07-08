@@ -1,0 +1,79 @@
+<head>
+    <th:block th:replace="fragments/head.html :: header" />
+    <link rel="stylesheet" href="css/valoracion.css">
+</head>
+
+
+<header>
+    <div th:replace="fragments/navigation.html :: modalBar(nombrePagina='VALORACIÓN')"></div>
+</header>
+
+<body>
+
+    <form th:action="@{/contrataciones/valorar}" method="POST">
+
+        <!-- Valor id oculto -->
+        <input type="hidden" name="idCandidatura" th:value="${idCandidatura}">
+        
+        <div class="w3-container">
+
+            <!-- Propuesta -->
+            <div class="w3-container w3-margin-bottom box divFlexSpaceEvenly divCentrado">
+                
+                <div class="texto-propuesta">
+                    <h2 th:text="${propuesta.nombre}"></h2>
+                    <p th:text="${propuesta.descripcion}"></p>
+                </div>
+
+                <div>
+                    <img class="imgValoracion" th:src="@{/propuesta/{id}/photo(id=${propuesta.id})}" />
+                </div>
+
+            </div>
+
+            <!-- Valoracion -->
+            <div class="w3-container w3-margin-bottom box divFlexSpaceEvenly">
+                <div id="cabecera">
+                    <h1>Valoración</h1>
+
+                    <!-- Imagen perfil -->
+                    <img class="imgValoracion" th:src="@{/perfil/{id}/photo(id=${idUsuario})}" />
+
+                    <!-- Estrellas input -->
+                    <input th:if="${modo} eq 'CREACION'" type="number" name="puntuacion" min="0" max="5" step="0.5" required
+                        class="w3-input w3-border w3-center w3-margin-bottom">
+					<p th:if="${modo} eq 'VISTA'" name="puntuacion" th:value="${valoracion.puntuacion}" th:text="${'Puntuacion: ' + valoracion.puntuacion}"></p>
+
+                    <!-- Estrellas -->
+                    <div class="ec-stars-wrapper">
+                        <i class="estrella far fa-star"></i>
+                        <i class="estrella far fa-star"></i>
+                        <i class="estrella far fa-star"></i>
+                        <i class="estrella far fa-star"></i>
+                        <i class="estrella far fa-star"></i>
+                    </div>
+                </div>
+
+                <!-- Comentario -->
+                <div class="comentario">
+                    <p th:if="${modo} eq 'VISTA'" th:text="${valoracion.valoracion}"></p>
+                    <textarea th:if="${modo} eq 'CREACION'" name="valoracion" rows="10" cols="50"
+                        class="w3-input w3-border" required placeholder="Introduzca su valoracion"></textarea>
+                </div>
+            </div>
+
+            <!-- Boton enviar valoracion-->
+            <div class="divCentrado">
+                <button th:if="${modo} eq 'CREACION'" class="w3-btn btnColor w3-margin" type="submit">Enviar valoración</button>
+            </div>
+
+        </div>
+    </form>
+
+    <!-- Boton de cerrar -->
+    <div class="divCentrado">
+        <button th:if="${modo} eq 'VISTA'" class="w3-btn btnColor w3-margin"
+            onclick="document.getElementById('modal').style.display='none'">Cerrar valoración</button>
+    </div>
+
+</body>

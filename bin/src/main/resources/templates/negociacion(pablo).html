@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+
+
+<head>
+<meta charset="UTF-8">
+    <th:block th:replace="fragments/head.html :: header"/>
+    <link href="css/negociacion.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body class="general">
+    
+    <!-- Header -->
+    <header>
+        <div th:replace="fragments/navigation.html :: navBar(nombrePagina='CHAT DE NEGOCIACIÃ“N')"></div>
+    </header>
+    <main>
+        <div class="contenido">
+
+            <div class="lista" >
+                <div class="propuesta" id="th:text="${propuesta.id}"" th:each="propuesta: ${propuestas}" onclick="cargaChat()">
+                    <a href="">
+                        <img width="50" height="50" src="img/perfilIcon.svg">
+                    </a>
+                    <span th:text="${propuesta.nombre}"> Nombre de la propuesta</span>
+                </div>
+            </div>
+
+            <div class="chat" id="chat">
+                <div class="barraChat">
+                    <div class="informacionChat">
+                        <a href="" class="perfil">Perfil de la empresa/influencer</a>
+                        <a href="" class="nombre">Zapatillas</a>
+                    </div>
+                    <div class="ultimatum">
+                        <a href="" class="boton">Enviar Ultimatum</a>
+                    </div>
+                </div>
+
+				<table class="datatable" id="datatable"></table>
+
+                <form th:action="@{/Usuario/1/msg(id=1)}" method="POST">
+                	<textarea id="message" placeholder="escribe a este usuario" rows="4" cols="20"></textarea>
+                	<button id="sendmsg">Enviar</button>
+                </form>
+
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+    <script src="js/chatNegociacion.js" type="text/javascript"></script>
+    <div th:replace="fragments/navigation.html :: footer"></div>
+</body>
+
+</html>

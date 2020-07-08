@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Influencing</title>
+    <style type="text/css">
+        .nota {
+            color: gray;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Influencing</h1>
+    <h2>Objetivo</h2>
+    <p>
+        La función de Influencing consiste en unir a empresas que busquen patrocinadores para sus
+        productos dentro de una cuota de mercado que tengan prefijada con influencers que tengan
+        perfiles en redes sociales relacionados con el público a los que se quiere hacer llegar esos
+        productos.
+
+        Los usuarios de la aplicación serán las <b>empresas</b> y los <b>influencers</b>. Una vez registrados en la
+        aplicación, las empresas pueden filtrar sus búsquedas de perfiles a través de distintos tags que
+        referencien a su marca/producto. A su vez, los influencers deben incluir en su perfil sus
+        canales de comunicación para que se pueda confirmar su capacidad de difusión. También se
+        permite que las empresas realicen ofertas públicas para que los influencers se ofrezcan como
+        posibles patrocinadores.
+
+        La aplicación tendrá un chat para que las empresas puedan negociar sus patrocinios, así como
+        un rating de referencias para ambos tipos de usuarios.
+        También existirá el rol de <b>administrador</b> para moderar el tipo de propuestas y perfiles que se
+        registran en la aplicación. El administrador recibe una notificación de cada registro y podrá
+        eliminar las que no considere adecuadas.
+    </p>
+
+
+    <h2>Vistas</h2>
+    <ul>
+        <li><a href="http://localhost:8080/inicio">inicio</a> - vista inicial. Ofrece un resumen general de la actividad
+            del perfil.
+        <li><a href="http://localhost:8080/negociacion">chat de negociación</a> - vista de empresa y usuario.
+            Permite negociar una propuesta de patrocinio y aceptarla/declinarla.
+        <li><a href="http://localhost:8080/admin">administración</a> - vista de administrador. Permite administrar empresas, influencers y propuestas.
+        <li><a href="http://localhost:8080/search_perfil">búsqueda perfiles</a> - vista de empresa y usuario. Permite
+            buscar perfiles por distintos criterios y muestra un resumen de la información básica del perfil.
+        <li><a href="http://localhost:8080/search_propuesta">búsqueda propuestas</a> - vista de empresa y usuario. Permite
+            buscar propuestas por distintos criterios y muestra un resumen de la información básica de la propuesta.
+    </ul>
+
+    <h2>Subvistas (sin ruta propia)</h2>
+    <ul>
+        <li><a href="">perfil</a> - vista de empresa y usuario. Permite ver la información del perfil y editarla en caso
+            de ser la del usuario logueado.
+        <li><a href="">notificaciones</a> - vista de empresa y usuario. Permite ver las notificaciones relacionadase con
+            el perfil logueado, marcarlas como leídas o borrarlas.
+        <li><a href="">edicion de propuestas</a> - vista de empresa. Permite publicar/editar una propuesta.
+        <li><a href="">final de campaña</a> - vista de empresa y usuario. Permite subir una valoración al finalizar el
+            patrocinio de una propuesta.
+    </ul>
+
+	<h2>Modelo del dominio</h2>
+	<img src="Modelo.png">
+
+    <h2>Recursos</h2>
+    <ul>
+<li><a href="src/main/resources/static/img/perfilIcon.svg"> Icono de imagen de perfil </a>, obtenido de la  <a href="https://www.flaticon.com/free-icon/user-avatar_16363"> página </a> con licencia <a href="https://profile.flaticon.com/license/free">Flaticon</a>
+<li><a href="src/main/resources/static/img/rechazar.png"> Imagen de aceptar propuesta </a>, obtenido de la  <a href="https://pixabay.com/es/illustrations/confirmar-aceptar-web-icono-1174801/"> página </a> con licencia <a href="https://pixabay.com/es/service/license/">Pixabay</a>
+<li><a href="src/main/resources/static/img/rechazar.png"> Imagen de rechazar propuesta </a>, obtenido de la  <a href="https://pixabay.com/es/vectors/cancelar-denegado-eliminar-148744/"> página </a> con licencia <a href="https://pixabay.com/es/service/license/">Pixabay</a>
+
+           <li>Logotipos de las vistas busquedaPropuestas y profileSearch no incluidos a espera de ver qué se hace con el tema de licencias 
+            al tratarse de imágenes de marcas. A pesar de esto se han añadido dichos recursos a la carpeta static/img.
+    </ul>
+    
+</body>
+
+</html>

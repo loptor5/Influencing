@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<div th:fragment="notificaciones (notificaciones)">
+
+  <head>
+    <th:block th:replace="fragments/head.html :: header" />
+    <link href="css/notificaciones.css" rel="stylesheet" />
+  </head>
+
+  <body style="width:100%" class="general">
+
+    <!-- !PAGE CONTENT! -->
+    <div>
+
+      <!-- Header -->
+      <header>
+        <div th:replace="fragments/navigation.html :: modalBar(nombrePagina='NOTIFICACIONES')"></div>
+      </header>
+
+      </header>
+      <div class="w3-container" th:each="notificacion: ${notificaciones}">
+        <!-- First Notification Grid-->
+
+
+        <div class="w3-card-4 w3-round w3-margin-top w3-margin-bottom">
+          <div class="w3-container w3-pale-blue w3-button w3-large w3-right"
+            onclick="this.parentElement.style.display='none'">X</div>
+          <div class="w3-container w3-pale-blue w3-row w3-center">
+            <h1 th:text="${notificacion.descripcion}">Descripcion de la notificacion</h1>
+          </div>
+
+          <div class="w3-container w3-pale-blue w3-center">
+            <p th:text="${notificacion.fecha}">Aqui va la fecha</p>
+          </div>
+        </div>
+
+
+        <!-- End page content -->
+      </div>
+
+  </body>
+</div>
+
+</html>

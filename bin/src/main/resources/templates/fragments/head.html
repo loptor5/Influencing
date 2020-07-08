@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>IW 2019-20</title>
+	<th:block th:fragment="header">
+		<meta charset="utf-8">
+		<link rel="stylesheet" th:href="@{/css/main.css}" href="css/main.css" type="text/css" />
+		<script type="text/javascript">
+			const config = {
+				socketUrl: "[[${session.ws}?:'']]",	// vacío indica falso
+				apiUrl: "[[${session.ws}?@{/api/v/}:'']]",
+				rootUrl: "[[${session.ws}?@{/}:'']]",
+				csrf: {
+					name: "[[${_csrf.parameterName}]]",
+					value: "[[${_csrf.token}]]"
+				},
+				admin: [[${ session.u != null && session.u.hasRole('ADMIN') } ? true : false]],
+				userId: [[${ session.u != null } ? ${ session.u.id }: -1]]
+			};
+		</script>
+		<script th:src="@{/js/stomp.js}" src="js/stomp.js" type="text/javascript"></script>
+		<script th:src="@{/js/iwclient.js}" src="js/iwclient.js" type="text/javascript"></script>
+
+		<!--  Influencing-específico -->
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="css/w3.css">
+		<link rel="stylesheet" href="css/Raleway.css">
+		<link rel="stylesheet" href="css/Aclonica.css" />
+		<link rel="stylesheet" href="css/all.min.css"> <!-- all css files for fontawesome -->
+		<link rel="stylesheet" href="css/style.css">
+		<link href="css/fragments.css" rel="stylesheet">
+
+	</th:block>
+</head>
+
+<body>
+	Head fragment - rest intentionally left empty.
+</body>
+
+</html>

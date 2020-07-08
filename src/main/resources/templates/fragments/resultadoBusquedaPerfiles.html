@@ -1,0 +1,50 @@
+
+<div th:if="${#lists.isEmpty(resultadoBusqueda)}" class="divCentrado">
+	<h3>No hay resultados</h3>
+</div>
+<div th:unless="${#lists.isEmpty(resultadoBusqueda)}">
+
+	<div class="w3-row-padding divFlex">
+
+		<div th:each="u: ${resultadoBusqueda}" class="w3-third w3-container w3-margin-bottom box">
+			<div class="w3-container w3-white info divResultadoBusqueda">
+				
+				<!-- Imagen-->
+				<div class="imagen" th:attr="data-id=${u.id}">
+					<img th:src="@{/perfil/{id}/photo(id=${u.id})}" class="w3-hover-opacity imgPerfilBusqueda">
+				</div>
+
+				
+
+				<!-- Tarjeta Detalles -->
+				<div class="divCentrado w3-container w3-light-grey w3-round-large w3-margin">
+
+					<!-- Nombre Usuario -->
+					<h3><b th:text="${u.nombre +' '+ u.apellidos}">Usuario</b></h3>
+
+					<!-- Valoracion -->
+					<div class="score">
+						<th:block th:each="i: ${#numbers.sequence(1, u.score)}">					
+							<i class="fa fa-star w3-margin estrella"></i>
+						</th:block>
+						<i th:if="${#strings.substring(u.score,2) >= '5'}" class="fa fa-star-half-alt w3-margin estrella"></i>
+					</div>
+
+					<!-- Tags -->
+					<div>
+						<button th:each="tag: ${#strings.listSplit(u.tags, ',')}" class="w3-button w3-white tags tagFilter" th:attr="data-id=${tag}" th:text="${tag}">Tag</button>
+					</div>
+					
+					<!-- Boton detalles-->
+					<button class="w3-btn btnColor w3-margin btnDetalles" th:attr="data-id=${u.id}">Detalles</button>
+					
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- Paginacion -->
+	<div th:replace="fragments/navigation.html :: pagination"></div>
+	
+</div>

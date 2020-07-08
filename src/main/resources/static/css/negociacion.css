@@ -1,0 +1,125 @@
+.titulo {
+    display: flex;
+    justify-content: center;
+}
+
+.enlaces {
+    display: flex;
+    justify-content: space-evenly;
+    padding-bottom: 3em;
+}
+
+.contenido-negociacion {
+    display: flex;
+}
+
+#contenidoChat{
+	background-color: rgba(110, 210, 221, 0.05);
+	border: solid 1pt lightgrey;
+	border-radius: 20px;
+	padding: 1%;
+	margin: 1%
+}
+
+#eliminaNegociacion{
+	display:none;
+}
+
+#botonUltimatum{
+	display: none;
+}
+
+.seleccionada{
+    background-color: gray;
+}
+
+.chat{
+	border: 1px solid;
+	box-shadow: 0 1px 3px -2px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+	border-radius: 20px;
+	background-color: #f9f9f9c4;
+	border: solid 1pt lightgrey;
+	width: 100%;
+
+	display: flex;
+    flex-direction: column;
+	justify-content: space-around;
+	margin: 1.5%;
+}
+
+.msg{
+	background-color: rgba(110, 210, 221, 0.2);
+    border: 0.5px solid rgb(110, 210, 221, 0.5);
+    border-radius:20px;
+	padding: 1%;
+	word-wrap: break-word;
+	box-shadow: 5px 5px 5px rgba(109, 109, 109, 0.377);
+}
+
+.recibido {
+	margin-right: 50%;
+}
+
+.enviado {
+	margin-left: 50%;
+}
+
+.barraChat{
+	background-color: rgba(110, 210, 221, 0.2);
+    display: flex;
+    justify-content: space-between;
+    padding: 2%;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	border-bottom: 2px solid rgb(110, 210, 221, 1);
+}
+
+.informacionChat{
+    display: flex;
+    flex-direction: column;
+}
+
+input{
+	border-radius: 20px;
+	padding-left: 1.5em;
+	border-color: rgb(110, 210, 221, 1);
+}
+
+
+.propuesta{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	border: 1px solid;
+	box-shadow: 0 1px 3px -2px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+	border-radius: 20px;
+	padding: 0.5em !important;
+	background-color: #f9f9f9c4;
+	border: solid 1pt lightgrey;
+	margin: 1.5%
+}
+
+.propuesta:hover{
+	cursor:pointer;
+	background-color: rgb(182, 182, 182);
+}
+
+
+.lista {
+    display: flex;
+    flex-direction: column;
+	margin: 1.5%
+}
+
+.perfil {
+	font-size: 1.5em;
+	margin-bottom: 1em;
+}
+
+.nombre{
+	font-size: 1.2em;
+}
+
+.size{
+	min-height: 80%;
+}

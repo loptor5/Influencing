@@ -1,0 +1,91 @@
+
+input[type=checkbox] {
+  transform: scale(3);
+  float: right;
+}
+
+input[type=date] {
+  margin: 0 1em 0 1em;
+}
+
+input[type=file] {
+  margin: 0 1em 0 1em;
+}
+
+#imagen-propuesta{
+	  width:15em;
+}
+
+
+.botones-propuesta{
+	padding-top: 6em;
+	display:flex;
+	justify-content: center;
+}
+
+.contenido-propuesta{
+	display:flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	padding: 0 3em 3em 3em;
+	text-align: center;
+}
+
+.texto-propuesta{
+	display:flex;
+	flex-direction: column;
+	align-items: center;
+	width:70%;
+	align-self: center;
+}
+
+.edad-propuesta{
+	display:flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#edades{
+	margin: 0 1em 0 1em;
+}
+
+.periodo-propuesta{
+	display:flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.imagen-propuesta{
+	display:flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.tags-propuesta{
+	display:flex;
+	padding: 2em 0 1em 0;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+
+.boton{
+	border-radius:20px;
+	background-color: #6ed1dd;
+	border-top: 1px solid #CCCCCC;
+	border-right: 1px solid #333333;
+	border-bottom: 1px solid #333333;
+	border-left: 1px solid #CCCCCC;
+}
+
+.btnAceptar{
+	font-size: 1.5em;
+	background-color: #98FB98;
+}
+
+.btnRechazar{
+	font-size: 1.5em;
+	background-color: #FA8072;
+
+}

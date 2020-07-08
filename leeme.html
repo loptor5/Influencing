@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Influencing</title>
+</head>
+
+<body>
+    <h1>Influencing</h1>
+	<h2>Autores</h2>
+    <ul>
+		<li>
+			Carlos López de la Torre Ortego
+		</li>
+		<li>
+			Ignacio Vítores Sancho
+		</li>
+    </ul>
+
+	<h2>Aparte de los cambios del examen, se han realizado los siguientes para subir nota:</h2>
+    <ul>
+		<li>Administrador: comprobado en el controlador que todas las acciones que puede hacer un admin las realiza un administrador.</li>
+        <li>Propuesta: comprobado que todas las acciones relacionadas con modificar una propuesta las realiza su dueño. Comprobado que el 
+            que crea una propuesta siempre es una empresa. Comprobadas las acciones sobre una candidatura solo las pueden realizar los 
+            afectados por la misma.</li>
+        <li>Busqueda Usuario: si es tu propio perfil en lugar del boton denunciar sale un boton para editar el perfil.</li>
+        <li></li>
+    </ul>
+
+    <h2>Objetivo</h2>
+    <p>
+        La función de Influencing consiste en unir a empresas que busquen patrocinadores para sus
+        productos dentro de una cuota de mercado que tengan prefijada con influencers que tengan
+        perfiles en redes sociales relacionados con el público a los que se quiere hacer llegar esos
+        productos.
+    </p>
+    <p>
+        Los usuarios de la aplicación serán las <b>empresas</b> y los <b>influencers</b>. Una vez registrados en la
+        aplicación, las empresas pueden filtrar sus búsquedas de perfiles a través de distintos tags que
+        referencien a su marca/producto. A su vez, los influencers deben incluir en su perfil sus
+        canales de comunicación para que se pueda confirmar su capacidad de difusión (RRSS). También se
+        permite que las empresas realicen ofertas públicas para que los influencers se ofrezcan como
+        posibles patrocinadores.
+    </p>
+    <p>
+        La aplicación tendrá un chat para que las empresas puedan negociar sus patrocinios, así como
+        un rating de referencias para ambos tipos de usuarios.
+        También existirá el rol de <b>administrador</b> para moderar el tipo de propuestas y perfiles que se
+        registran en la aplicación. El administrador recibe una notificación de cada registro y podrá
+        eliminar las que no considere adecuadas, ademas de tramitar denuncias de los usuarios.
+    </p>
+
+
+    <h2>Vistas</h2>
+    <p>
+        Las diferentes paginas en las que se puede navegar a traves de la navbar.
+    </p>
+    <ul>
+        <li><a href="http://localhost:8080/login">LOGIN</a> - vista para entrar en la pagina o registrarse.</li>
+        <li><a href="http://localhost:8080/inicio">INICIO</a> - vista inicial. Ofrece un resumen general de la actividad
+            de la pagina, con atajos rapidos de panel de control (crear propuestas en el caso de las empresas).</li>
+        <li><a href="http://localhost:8080/administracion">ADMINISTRACIÓN</a> - vista de administrador. Permite administrar
+            empresas,
+            influencers, propuestas y denuncias.</li>
+        <li><a href="http://localhost:8080/busquedaPerfil">BÚSQUEDA DE PERFILES</a> - vista de empresa e influencer.
+            Permite
+            buscar perfiles por distintos criterios y muestra un resumen de la información básica del perfil.</li>
+        <li><a href="http://localhost:8080/busquedaPropuesta">BÚSQUEDA DE PROPUESTAS</a> - vista de empresa e
+            influencer. Permite
+            buscar propuestas por distintos criterios y muestra un resumen de la información básica de la propuesta.
+        </li>
+        <li><a href="http://localhost:8080/negociacion">CHAT DE NEGOCIACIÓN</a> - vista de empresa e influencer.
+            Permite negociar una propuesta de patrocinio a traves de un chat en tiepo real y aceptarla/declinarla a
+            traves de un ultimatum.</li>
+        <li><a href="http://localhost:8080/contrataciones">CONTRATACIONES</a> - vista de empresa e influencer.
+            Permite ver el estado y detalles de las contrataciones realizadas con los usuarios y permite valorarlos.
+        </li>
+    </ul>
+
+    <h2>Modals (sin ruta propia)</h2>
+    <p>
+        Las diferentes paginas que se superponen a la vista para editar, ver o crear nuevas entidades en la pagina.
+    </p>
+    <ul>
+        <li><a href="">PERFIL</a> - vista de empresa e influencer. Permite ver la información del perfil y editarla en
+            caso
+            de ser la del usuario logueado.</li>
+        <li><a href="">PROPUESTA</a> - vista de empresa. Permite publicar/editar una propuesta.</li>
+        <li><a href="">DENUNCIA</a> - vista de empresa e influencer. Permite poner una denuncia a un usuario.</li>
+        <li><a href="">NOTIFICACIONES</a> - vista de empresa e influencer. Permite ver las notificaciones relacionadase
+            con
+            el perfil logueado, marcarlas como leídas o borrarlas.</li>
+        <li><a href="">VALORACIÓN</a> - vista de empresa e influencer. Permite subir una valoración al finalizar la
+            contratacion
+            de una propuesta.</li>
+    </ul>
+
+    <h2>Modelo del dominio</h2>
+    <img src="Modelo.png">
+
+    <h2>Recursos</h2>
+    <ul>
+        <li>Icono pagina: <a href="src/main/resources/static/img/icon.png">icon.png</a> obtenidos de la <a href="https://www.flaticon.com/free-icon/conversation_2892431">Trending Topic free icon</a>
+            con licencia <a href="https://profile.flaticon.com/license/free"> Flaticon</a>
+        </li>
+        <li>Iconos RRSS: <a href="src/main/resources/static/img/facebook.png">facebook.png<a>, <a href="src/main/resources/static/img/instagram.png">instagram.png</a>, 
+            <a href="src/main/resources/static/img/twitter.png">twitter.png</a> y <a href="src/main/resources/static/img/youtube.png">youtube.png</a> obtenidos del pack de iconos
+            <a href="https://www.flaticon.com/packs/social-media-icons"> Social Media Icons</a> con licencia
+            <a href="https://profile.flaticon.com/license/free"> Flaticon</a>
+        </li>
+        <li>Imagen de propuesta: imagen por defecto de una propuesta, <a href="src/main/resources/static/img/propuesta.png">propuesta.png</a></li>
+        <li>Imagen de perfil: imagen por defecto de un perfil, <a href="src/main/resources/static/img/profile.png">profile.png</a></li>
+        <li>Fuentes extraídas de <a href="https://github.com/FortAwesome/Font-Awesome">Font-Awesome</a> con licencia <a href="https://fontawesome.com/license">Font Awesome Pro License</a></li>
+
+    </ul>
+
+
+</body>
+
+</html>

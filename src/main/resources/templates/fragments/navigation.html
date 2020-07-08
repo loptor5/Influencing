@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link rel="stylesheet" href="css/w3.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/fragments.css">
+    <script src="js/navigation.js" type="text/javascript"></script>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <div th:fragment="navBar(nombrePagina)">
+        
+        <!-- Cabecera -->
+        <div class="title w3-display-container">
+            
+            <!-- Logo -->
+            <a class="logo w3-hover-text-white w3-display-topleft" th:href="${session.u.hasRole('ADMIN')}?@{/administracion}:@{/inicio}"><img
+                src="img/icon.png" width=70 height=70/> INFLUENCING</a>
+            
+            <!-- Titulo Pagina -->
+            <div class="w3-display-bottommiddle tituloPag">
+                <h4><b><span th:text="${nombrePagina}"></span></b></h4>
+					<span id="botonNotificacionesNav" class="w3-button divFlex w3-text-white">Notificaciones
+					<sup id="indiceNumNotificaciones"><button id="btnNumeroNotificaciones" class="w3-button w3-circle w3-teal" th:text=${numNotificaciones}>0</button><sup>
+				</span>
+            </div>
+
+
+            <!-- Dropdown Usuario -->
+            <div class="w3-dropdown-hover w3-right w3-margin-right w3-border-left w3-border-white w3-margin">
+                <button class="w3-button w3-text-white">
+                    <h3 th:text="${session.u.nombre}"></h3>
+                    <i class="fas fa-caret-down"></i>
+                </button>
+                <div class="w3-dropdown-content w3-bar-block w3-card-4" id="desplegableUsuario">
+                    <!--<span id="botonNotificacionesNav" class="w3-bar-item w3-button divFlex">Notificaciones
+						<sup id="indiceNumNotificaciones"><button id="btnNumeroNotificaciones" class="w3-button w3-circle w3-teal" th:text=${numNotificaciones}>0</button><sup>
+					</span>-->
+                    <span id="botonPerfilNav" class="w3-bar-item w3-button">Mi Perfil</span>
+                    <form th:action="@{/logout}" method="post" class="w3-bar-item w3-button">
+                        <button type="submit">Cerrar sesión</button>
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- Barra de Navegación -->
+        <div th:unless="${session.u.hasRole('ADMIN')}" class="horizontalBar w3-margin-top">
+            <ul class="ulFragment">
+                <li><a th:class="${nombrePagina=='INICIO'}?'active':''"
+                        th:href="@{/inicio}"><i class="fas fa-home" aria-hidden="true"></i> Inicio</a></li>
+                <li><a th:class="${nombrePagina=='BÚSQUEDA DE PERFILES'}?'active':''"
+                        th:href="@{/busquedaPerfil}"><i class="fa fa-search" aria-hidden="true"></i> Búsqueda de
+                        Perfiles</a></li>
+                <li><a th:class="${nombrePagina=='BÚSQUEDA DE PROPUESTAS'}?'active':''"
+                        th:href="@{/busquedaPropuesta}"><i class="fa fa-suitcase" aria-hidden="true"></i> Búsqueda de
+                        Propuestas</a></li>
+                <li><a th:class="${nombrePagina=='CHAT DE NEGOCIACIÓN'}?'active':''"
+                        th:href="@{/negociacion}"><i class="fa fa-comment" aria-hidden="true"></i> Chat de
+                        Negociación</a></li>
+                <li><a th:class="${nombrePagina=='CONTRATACIONES'}?'active':''"
+                        th:href="@{/contrataciones}"><i class="fa fa-file-contract" aria-hidden="true"></i>
+                        Contrataciones</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- MODALBAR -->
+    <div th:fragment="modalBar(nombrePagina)" id="modalBar" class="title w3-display-container">
+        <div id="volver" class="w3-button w3-display-topleft"
+            onclick="document.getElementById('modal').style.display='none'">
+            <div class="w3-padding w3 w3-text-white"><i class="fas fa-arrow-left"></i> VOLVER</div>
+        </div>
+        <div id="nombrePagina" class="w3-display-middle nombrePagina">
+            <b><span class="w3-text-white" th:text="${nombrePagina}"></span></b>
+        </div>
+    </div>
+
+
+    <!-- TAGBAR -->
+    <div th:fragment="tagBar(nombrePagina)" class="w3-display-container">
+        <div class="w3-section w3-bottombar wFilter3-padding-16 tagsList">
+			<div th:unless="${nombrePagina} eq 'CONTRATACIONES'"class="divFlex divCentrado">
+			            <span class="w3-margin-right"><b>Tags:</b></span>
+
+	            <button class="w3-button w3-blue tagFilter tagFilterSelected" th:attr="data-id=' ALL '">ALL</button>
+	            <button class="w3-button w3-white tagFilter" th:attr="data-id='Moda'"><i class="fa fa-tshirt w3-margin-right"></i>Moda</button>
+	            <button class="w3-button w3-white w3-hide-small tagFilter" th:attr="data-id='Videojuegos'"><i
+	                    class="fa fa-gamepad w3-margin-right"></i>Videojuegos</button>
+	            <button class="w3-button w3-white w3-hide-small tagFilter" th:attr="data-id='Viajes'"><i
+	                    class="fa fa-globe w3-margin-right"></i>Viajes</button>
+	            <button class="w3-button w3-white w3-hide-small tagFilter" th:attr="data-id='Naturaleza'"><i
+	                    class="fa fa-leaf w3-margin-right"></i>Naturaleza</button>
+	            <button class="w3-button w3-white w3-hide-small tagFilter" th:attr="data-id='Música'"><i
+	                    class="fa fa-music w3-margin-right"></i>Música</button>
+			</div>
+			<div th:if="${nombrePagina} eq 'CONTRATACIONES'"class="divFlex divCentrado">
+			            <span class="w3-margin-right"><b>Estado:</b></span>
+
+				<button class="w3-button w3-blue tagFilter tagFilterSelected" th:attr="data-id=' ALL '">Todas</button>
+	            <button class="w3-button w3-white tagFilter" th:attr="data-id='EN_CURSO'">
+                    <i class="fa fa-user-clock w3-margin-right"></i>En curso</button>
+	            <button class="w3-button w3-white tagFilter" th:attr="data-id='EN_VALORACION'">
+                    <i class="fa fa-user-edit w3-margin-right"></i>En valoración</button>
+	            <button class="w3-button w3-white w3-hide-small tagFilter" th:attr="data-id='FINALIZADA'">
+                    <i class="fa fa-check-double w3-margin-right"></i>Finalizadas</button>
+	            
+			</div>
+			    <input th:unless="${nombrePagina} eq 'CONTRATACIONES'" type="text" placeholder="Búsqueda por nombre" id="cuadroBusquedaTagBar">
+
+			    <input th:if="${nombrePagina} eq 'CONTRATACIONES'" type="text" placeholder="Búsqueda por nombre de propuesta" id="cuadroBusquedaTagBar">
+			</div>
+        </div>
+    </div>	
+
+    <!-- FOOTER -->
+    <footer th:fragment="footer" class="w3-container w3-padding-32 w3-dark-grey footer">
+        <div class="links">
+            <a href="#" title="home" target="_blank" class="w3-hover-opacity">Influencing</a> -
+            <a href="#" title="terms" target="_blank" class="w3-hover-opacity">Términos y condiciones</a> -
+            <a href="#" title="contact" target="_blank" class="w3-hover-opacity">Contáctanos</a>
+        </div>
+    </footer>
+
+    <!-- PAGINACION-->
+    <div th:fragment="pagination" class="w3-center w3-padding-32">
+
+        <div class="w3-bar">
+        <th:block th:each="i: ${#numbers.sequence(0,numeroPaginas-1)}">
+            <a class="w3-bar-item w3-button w3-hover-blue botonPaginacion" th:text="${i+1}" th:attr="data-prop-indice=${i+1},data-prop-patron=${patron}"></a>
+        </th:block>	
+        </div>
+    </div>
+
+</body>
+
+</html>
